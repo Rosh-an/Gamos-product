@@ -1,0 +1,555 @@
+<!-- <mat-toolbar class="topnav">
+    <span class = "filler"></span>
+  <a href="#notification" class="notify">Notification</a>
+   <button mat-raised-button (click)="openBottomSheet()">Chat</button>
+    <button mat-button [matMenuTriggerFor]="menu">Menu</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item>profiles</button>
+  <button mat-menu-item>Subscribe</button>
+  <button mat-menu-item>Setting</button>
+  <button mat-menu-item>Logout</button>
+
+</mat-menu>
+ </mat-toolbar> -->
+ <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.1/css/all.css">
+ <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" />
+ <link href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah&display=swap" rel="stylesheet">
+
+
+
+ <!-- <ng-chat [theme]="currentTheme" [adapter]="adapter" [userId]="userId"></ng-chat> -->
+
+ <div>
+    <a id="chat" (click)="openchat()"><img style="height: 100px; width:100px; z-index: 100" src="../../assets/chat.webp" id="fixedbutton"></a>
+    <mat-toolbar color="primary" class="navbar1" >
+
+        <div class="nav">
+            <button mat-button routerLink='/dashboard' style="float: left"><mat-icon>home</mat-icon></button>
+            <button (click)="loadNotifications()" style="float: right" matBadgePosition="after" matBadgeOverlap="true" mat-icon-button [matMenuTriggerFor]="notify" aria-label="Example icon-button with a menu">
+              <mat-icon>notification_important</mat-icon>
+            </button>
+            <mat-menu #notify="matMenu">
+              <div *ngIf="notifications">
+                <div style="padding: 10px;" *ngFor="let message of notifications.matchNotifications">
+                    <span style="text-transform: capitalize;">{{message.msg}}</span>
+                    
+                    <div *ngIf="!accepted">
+                        <button color="primary" mat-raised-button (click)="AddToAcceptedRequest(message.senderEmail)">Accept</button>
+                        <button color="warn" mat-raised-button >Reject</button>
+                    </div>
+                    <br>
+                    <mat-divider></mat-divider>
+                </div>
+            </div>
+            </mat-menu>
+            <button style="float: right" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+                <mat-icon>dashboard</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item routerLink='/user-profile'><mat-icon>account_circle</mat-icon> My Profile</button>
+                <button mat-menu-item [matMenuTriggerFor]="settings"><mat-icon>settings_application</mat-icon> Settings</button>
+                <button mat-menu-item><mat-icon>help</mat-icon> Help</button>
+                <button (click)="logout()" mat-menu-item routerLink='/home'><mat-icon>power_settings_new</mat-icon> Log Out</button>
+            </mat-menu>
+            <mat-menu #settings="matMenu">
+                <button mat-menu-item routerLink='/settings'>Subscriptions</button>
+                <button mat-menu-item routerLink='/settings'>Security</button>
+            </mat-menu>
+        </div>
+    </mat-toolbar>
+</div>
+
+
+
+
+
+
+<div class="bg" id="overlay">
+
+        <div class="stats" style="padding: 2%">
+            <div class="stats-overlay"></div>
+
+                <div mat-raised class="logo1"><h1><font color="white">Gamos</font></h1></div>
+
+
+                    <!-- Search -->
+
+                <!-- <button class="search1" style="background: transparent; border:none" (click)="search()"><mat-icon>search</mat-icon></button> -->
+
+                <div id="search" style="width: 50%">
+                    <mat-form-field style="width: 95%;" appearance="standard">
+                        <mat-label>Type your preferences here</mat-label>
+                        <input style="color: black" matInput placeholder="say brides in delhi age 24 etc." value={{message}} type="search" id="site-search" #value>
+                        <button style="color: black" mat-icon-button matPrefix [disabled]="service.started$ | async"  (click)="listen()">
+                        <mat-icon [inline]="true">mic</mat-icon>
+                        </button>
+                        <button (click)="hidedashboard()" class="searchbutton" mat-icon-button style="color: black;" type="submit" value="submit" (keyup.enter)=onClick(true,value)  matSuffix (click)=onClick(true,value)>
+                            <mat-icon>search</mat-icon>
+                        </button>
+                    </mat-form-field>
+                 </div>
+                <!-- Search End -->
+
+
+
+
+                <!-- <form id="demo-2">
+                    <input type="search" value={{message}} id="site-search" #value placeholder="try saying brides in delhi age 24 etc.">
+                    <button style="color: white" mat-icon-button matPrefix [disabled]="service.started$ | async"  (click)="listen()">
+                        <mat-icon [inline]="true">mic</mat-icon>
+                    </button>
+                    <button mat-raised-button color="warn" type="submit" value="submit" (keyup.enter)=onClick(true,value)  matSuffix (click)=onClick(true,value) >Go!</button>
+                </form> -->
+
+
+                <!-- <form id="demo-2">
+
+                    <mat-label>Type your preferences here</mat-label>
+                    <i class="icon">
+                        <button  style="color: white" mat-icon-button matPrefix [disabled]="service.started$ | async"  (click)="listen()">
+                            <mat-icon [inline]="true">mic</mat-icon>
+                        </button>
+                    </i>
+                    <input style="color: black" matInput placeholder="try saying brides in delhi age 24 etc." value={{message}} type="search" id="site-search" #value>
+
+                    <button id="sub" mat-raised-button color="warn" type="submit" value="submit" (keyup.enter)=onClick(true,value)  matSuffix (click)=onClick(true,value) >Go!</button>
+                </form> -->
+
+
+                </div>
+
+
+<div >
+                <mat-accordion >
+                <mat-expansion-panel>
+                    <mat-expansion-panel-header>
+                    <mat-panel-title>
+                        Filters
+                    </mat-panel-title>
+                    <mat-panel-description>
+                        Choose your filters for the perfect partner
+                    </mat-panel-description>
+                    </mat-expansion-panel-header>
+                <div class="filters">
+                    <section class="example-section">
+                        <label class="example-margin">Looking for a:</label>
+                        <mat-radio-group [(ngModel)]="labelPosition">
+                            <mat-radio-button class="example-margin" value="bride">Bride</mat-radio-button>
+                            <mat-radio-button class="example-margin" value="groom">Groom</mat-radio-button>
+                        </mat-radio-group>
+                    </section>
+                    <section class="example-section">
+                        <label class="example-margin">Age Between:</label>
+                        <mat-radio-group [(ngModel)]="labelPosition1">
+                            <mat-radio-button class="example-margin" value="between 18 to 22">18-22</mat-radio-button>
+                            <mat-radio-button class="example-margin" value="between 23 to 27">23-27</mat-radio-button>
+                            <mat-radio-button class="example-margin" value="between 28 to 32">28-32</mat-radio-button>
+                            <mat-radio-button class="example-margin" value="between above 32">Above 32</mat-radio-button>
+                            <mat-radio-button class="example-margin" value="any">Any</mat-radio-button>
+                        </mat-radio-group>
+                    </section>
+                    <section class="example-section">
+                            <label class="example-margin">Religion</label>
+                            <mat-radio-group [(ngModel)]="labelPosition2">
+                                <mat-radio-button class="example-margin" value="hindu">Hindu</mat-radio-button>
+                                <mat-radio-button class="example-margin" value="muslim">Muslim</mat-radio-button>
+                                <mat-radio-button class="example-margin" value="christian">Christian</mat-radio-button>
+                                <mat-radio-button class="example-margin" value="of any religion">Any</mat-radio-button>
+                            </mat-radio-group>
+                        </section>
+                    <!-- <section class="example-section">
+                            <label class="example-margin">Speaks Languages: </label>
+                            <mat-radio-group [(ngModel)]="labelPosition3">
+                                <mat-radio-button class="example-margin" value="english">English</mat-radio-button>
+                                <mat-radio-button class="example-margin" value="hindi">Hindi</mat-radio-button>
+                                <mat-radio-button class="example-margin" value="bengali">Bengali</mat-radio-button>
+                                <mat-radio-button class="example-margin" value="any language">Any</mat-radio-button>
+                            </mat-radio-group>
+                    </section> -->
+
+
+
+                    <mat-form-field>
+                    <input matInput placeholder="City" [formControl]="city">
+                    </mat-form-field>
+                    <button (click)="SearchFilter(city.value)">SEARCH</button>
+                    <p>Looking for a {{labelPosition}}, aged {{labelPosition1}}, who is {{labelPosition2}} and lives in {{city.value}}</p>
+                </div>
+                </mat-expansion-panel>
+                </mat-accordion>
+            </div>
+
+</div>
+
+
+        <!-- <div *ngIf="searchresults" class="our-reco">
+           <h3>Gamos Recommendations</h3>
+        </div> -->
+
+
+
+
+        <div *ngIf="!hide" class="our-reco">
+            <h3>Gamos Matches</h3>
+        </div>
+
+        
+
+<app-recommendation *ngIf="!hide">
+        
+</app-recommendation>
+
+<div *ngIf="searchresults">
+
+
+
+<app-search ></app-search>
+</div>
+
+
+
+<!-- <div class="box">
+        <button style="color: black" mat-icon-button matPrefix [disabled]="service.started$ | async"  (click)="listen()">
+            <mat-icon [inline]="true">mic</mat-icon>
+        </button>
+    <input class="input_box" value={{message}} type="search" id="site-search" #value placeholder="say brides in delhi age 24 etc.">
+
+
+<i class="fas fa-search"></i>
+
+ </div> -->
+
+
+ <!-- <div id="search">
+        <mat-form-field style="width: 95%;" appearance="standard">
+            <mat-label>Type your preferences here</mat-label>
+            <input style="color: black" matInput placeholder="try saying brides in delhi age 24 etc." value={{message}} type="search" id="site-search" #value>
+            <button style="color: black" mat-icon-button matPrefix [disabled]="service.started$ | async"  (click)="listen()">
+            <mat-icon [inline]="true">mic</mat-icon>
+            </button>
+            <button mat-raised-button color="warn" type="submit" value="submit" (keyup.enter)=onClick(true,value)  matSuffix (click)=onClick(true,value) >Go!</button>
+        </mat-form-field>
+        </div> -->
+
+
+
+
+  <!-- <mat-grid-list cols="2">
+    <mat-grid-tile class="pfv">
+            <mat-card class="example-card">
+                <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu">
+            </mat-card>
+    </mat-grid-tile>
+    <mat-grid-tile class="pfd">
+        Profile details
+    </mat-grid-tile>
+  </mat-grid-list> -->
+
+
+
+
+<!--
+
+<div class="carousel">
+    <a class="carousel-item" href="#{{hrefs[n]}}!" *ngFor="let it of items;let n = index">
+        <img src={{it}}/>
+    </a>
+</div> -->
+
+
+<!-- <carousel class="reco" >
+    <div class="carousel-inner">
+        <slide>
+            <div class="carousel-item">
+                <div class="col-md-4">
+                    <mat-card class="example-card">
+                        <img mat-card-image src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg" alt="Photo of a Shiba Inu">
+                        <div>
+                            <div class="card-body">
+                                <h4 style="opacity: 1;" class="card-title">Customer A</h4>
+                                <span>
+                                <p>Age:</p>
+                                <p>Location</p>
+                                </span>
+                                <button (click)="profilemodal()" mat-raised-button color="primary">Primary</button>
+                            </div>
+                        </div>
+                                <button (click)="openProfile()" mat-raised-button color="primary">Primary</button>
+                            </div>
+                    </mat-card>
+                </div>
+                <div class="col-md-4">
+                    <mat-card class="example-card">
+                        <img (click)="profilemodal()" mat-card-image src="https://mdbootstrap.com/img/Photos/Horizontal/Food/4-col/img%20(53).jpg" alt="Photo of a Shiba Inu">
+                        <mat-card-content>
+                                <div class="card-body">
+                                        <h4 class="card-title">Customer A</h4>
+                                        <p>Age:</p>
+                                        <p>Location</p>
+                                        <button mat-raised-button color="primary">Primary</button>
+                                    </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="col-md-4">
+                    <mat-card class="example-card">
+                        <img mat-card-image src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(18).jpg" alt="Photo of a Shiba Inu">
+                        <mat-card-content>
+                                <div class="card-body">
+                                        <h4 class="card-title">Customer A</h4>
+                                        <p>Age:</p>
+                                        <p>Location</p>
+                                        <button (click)="profilemodal()" mat-raised-button color="primary">Primary</button>
+                                    </div>
+                                        <button mat-raised-button color="primary">Primary</button>
+                                    </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+        </slide>
+
+        <slide>
+            <div class="carousel-item" style="display: block; width: 100%;">
+                <div class="col-md-4">
+                    <mat-card class="example-card">
+                        <img mat-card-image src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(60).jpg" alt="Photo of a Shiba Inu">
+                        <mat-card-content>
+                                <div class="card-body">
+                                        <h4 class="card-title">Customer A</h4>
+                                        <p>Age:</p>
+                                        <p>Location</p>
+                                        <button (click)="profilemodal()" mat-raised-button color="primary">Primary</button>
+                                    </div>
+                                        <button mat-raised-button color="primary">Primary</button>
+                                    </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="col-md-4">
+                    <mat-card class="example-card">
+                        <img mat-card-image src="https://mdbootstrap.com/img/Photos/Horizontal/Food/4-col/img%20(45).jpg" alt="Photo of a Shiba Inu">
+                        <mat-card-content>
+                                <div class="card-body">
+                                        <h4 class="card-title">Customer A</h4>
+                                        <p>Age:</p>
+                                        <p>Location</p>
+                                        <button (click)="profilemodal()" mat-raised-button color="primary">Primary</button>
+                                    </div>
+                                        <button mat-raised-button color="primary">Primary</button>
+                                    </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="col-md-4">
+                    <mat-card class="example-card">
+                        <img mat-card-image src="https://mdbootstrap.com/img/Photos/Horizontal/City/4-col/img%20(48).jpg" alt="Photo of a Shiba Inu">
+                        <mat-card-content>
+                                <div class="card-body">
+                                        <h4 class="card-title">Customer A</h4>
+                                        <p>Age:</p>
+                                        <p>Location</p>
+                                        <button (click)="profilemodal()" mat-raised-button color="primary">Primary</button>
+                                    </div>
+                                        <button mat-raised-button color="primary">Primary</button>
+                                    </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+        </slide>
+        <slide>
+            <div class="carousel-item">
+                <div class="col-md-4">
+                    <mat-card class="example-card">
+                        <img mat-card-image src="https://mdbootstrap.com/img/Photos/Horizontal/Food/4-col/img%20(51).jpg" alt="Photo of a Shiba Inu">
+                        <mat-card-content>
+                                <div class="card-body">
+                                        <h4 class="card-title">Customer A</h4>
+                                        <p>Age:</p>
+                                        <p>Location</p>
+                                        <button (click)="profilemodal()" mat-raised-button color="primary">Primary</button>
+                                    </div>
+                                        <button mat-raised-button color="primary">Primary</button>
+                                    </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="col-md-4">
+                    <mat-card class="example-card">
+                        <img mat-card-image src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(34).jpg" alt="Photo of a Shiba Inu">
+                        <mat-card-content>
+                                <div class="card-body">
+                                        <h4 class="card-title">Customer A</h4>
+                                        <p>Age:</p>
+                                        <p>Location</p>
+                                        <button (click)="profilemodal()" mat-raised-button color="primary">Primary</button>
+                                    </div>
+                                        <button mat-raised-button color="primary">Primary</button>
+                                    </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+                <div class="col-md-4">
+                    <mat-card class="example-card">
+                        <img mat-card-image src="https://mdbootstrap.com/img/Photos/Horizontal/Nature/4-col/img%20(18).jpg" alt="Photo of a Shiba Inu">
+                        <mat-card-content>
+                                <div class="card-body">
+                                        <h4 class="card-title">Customer A</h4>
+                                        <p>Age:</p>
+                                        <p>Location</p>
+                                        <button (click)="profilemodal()" mat-raised-button color="primary">Primary</button>
+                                    </div>
+                                        <button mat-raised-button color="primary">Primary</button>
+                                    </div>
+                        </mat-card-content>
+                    </mat-card>
+                </div>
+            </div>
+        </slide>
+    </div>
+</carousel> -->
+
+
+
+
+<!-----------------SEARCH CARDS------------------------>
+
+
+<div fxLayout fxLayoutGap="10px" fxLayout.xs="column" class="search-panel" style="padding:5%">
+
+    <!------------------INDIVIDUAL CARDS-------------->
+
+    <!-- <div [@simpleFadeAnimation] *ngIf="connectoverlay" fxFlex=32.5% fxLayout fxLayout.xs="column" class="search-cards1">
+            <span>CONNECTED</span>
+            <span>Kunal Singhal</span>
+            <button (click)="showCard()" mat-icon-button style="float: right;" aria-label="Example icon-button with a heart icon">
+                <mat-icon>clear</mat-icon>
+            </button>
+    </div> -->
+    
+    <div *ngFor="let o of Obj; let i=index" fxFlex=32.5% fxLayout fxLayout.xs="column" class="search-cards">
+            <!-- <span *ngIf="connectoverlay">CONNECTED</span> -->
+
+       <div *ngIf="o!=null">
+                <div [@simpleFadeAnimation] *ngIf="connectoverlay[i]" class="overlay1">
+                    <button (click)="showCard(i)" mat-icon-button style="float: right;">
+                        <mat-icon>clear</mat-icon>
+                    </button>
+                    CONNECTION REQUEST SENT
+                </div>
+
+                <div [@simpleFadeAnimation] *ngIf="likeoverlay[i]" class="overlay2">
+                    <button (click)="showCard1(i)" mat-icon-button style="float: right;">
+                        <mat-icon>clear</mat-icon>
+                    </button>
+                    LIKED
+                </div>
+
+                <mat-card *ngIf="!closecard[i]" class="example-card">
+
+                    <span *ngIf="likeoverlay[i]" class="overlay">LIKED</span>
+                    <span *ngIf="connectoverlay[i]" class="overlay">CONNECTION SENT</span>
+                <mat-card-content style="padding-bottom: 2px;">
+                    <!-- <div class="video">
+                        <mat-video [muted]="mute[i]" [fullscreen]="true" [overlay]="false" [src] ="o.videoUrl ? o.videoUrl : 'https://cdn.videvo.net/videvo_files/converted/2017_12/preview/171124_B2_UHD_001.mp471291.webm'"></mat-video>
+
+                    </div> -->
+                    <div class="video">
+                        <img style="height: 300px; width:300px;" [src]="o.imageUrl ? o.imageUrl[0] : 'https://avatarsed1.serversdev.getgo.com/2205256774854474505_medium.jpg'">
+                        <div class="centered"><img (click)="playvideo(o.videoUrl)" style="height: 100px; max-width:100px;" src="../../assets/play.png"></div>
+                    </div>
+
+                    <div style="position:absolute;left:0;right:0;top:0; background: rgba(0, 0, 0, 0.5);
+                    color: #f1f1f1;">
+                        <button *ngIf="!connected[i]" (click)=connect(i,o.basicPersonalDetails.email) mat-icon-button style="float: left;" aria-label="Example icon-button with a heart icon" class="card-button1" >
+                            <mat-icon>person_add</mat-icon>
+                        </button>
+                        <button *ngIf="connected[i]" mat-icon-button style="color: green;float: left;" aria-label="Example icon-button with a heart icon"  >
+                            <mat-icon>how_to_reg</mat-icon>
+                        </button>
+                        <a id="name" target="_blank" (click)="GoToShowProfile(o.basicPersonalDetails.email)" (click)="click1(o.basicPersonalDetails.email)"><span class="card-name">{{o.basicPersonalDetails.firstName}}</span></a>
+                        <button *ngIf="liked[i]" mat-icon-button color="warn" style="float: right;" aria-label="Example icon-button with a heart icon" >
+                        <mat-icon>favorite</mat-icon>
+                        </button>
+                        <button *ngIf="!liked[i]" (click)=like(i,o.basicPersonalDetails.email) mat-icon-button style="color: pink" style="float: right;" aria-label="Example icon-button with a heart icon" class="card-button">
+                            <mat-icon>favorite</mat-icon>
+                        </button>
+                    </div>
+
+                    <div style="position:absolute;left:0;right:0;margin-top:-10%;
+                    color: #f1f1f1;">
+                        <!-- <button mat-icon-button style="float: left; color: white" aria-label="Example icon-button with a heart icon" class="card-button1">
+                            <mat-icon>play_arrow</mat-icon>
+                        </button>
+                        <button mat-icon-button style="float: left; color: white" aria-label="Example icon-button with a heart icon" class="card-button1" >
+                            <mat-icon>pause</mat-icon>
+                        </button> -->
+
+                        <!--                   TO BE UNCOMMENTED FOR VOLUME BUTTON            -->
+                        <!-- <button *ngIf="mute[i]" (click)=togglemute(i) mat-icon-button style="float: left; color: white" aria-label="Example icon-button with a heart icon" class="card-button2" >
+                            <mat-icon>volume_off</mat-icon>
+                        </button>
+                        <button *ngIf="!mute[i]" (click)=togglemute(i) mat-icon-button style="float: left; color: white" aria-label="Example icon-button with a heart icon" class="card-button2" >
+                            <mat-icon>volume_up</mat-icon>
+                        </button> -->
+                    </div>
+
+                </mat-card-content>
+
+
+                    <!-- <mat-card-actions style="margin-bottom: 0;" class="card-actions">
+                        <span class="card-name">Kunal Singhal 1, 20</span>
+                        <button *ngIf="liked" mat-icon-button color="warn" style="float: right;" aria-label="Example icon-button with a heart icon" class="card-button">
+                            <mat-icon>favorite</mat-icon>
+                        </button>
+                        <button *ngIf="!liked" (click)=like() mat-icon-button style="color: pink" style="float: right;" aria-label="Example icon-button with a heart icon" class="card-button">
+                            <mat-icon>favorite</mat-icon>
+                        </button>
+                        <button *ngIf="!connected" (click)=connect() mat-icon-button style="color: green; float: right;" aria-label="Example icon-button with a heart icon" class="card-button">
+                            <mat-icon>person_add</mat-icon>
+                        </button>
+                        <button *ngIf="connected" mat-icon-button style="color: green; float: right;" aria-label="Example icon-button with a heart icon" class="card-button">
+                            <mat-icon>how_to_reg</mat-icon>
+                        </button>
+                    </mat-card-actions> -->
+            </mat-card>
+       </div>
+    </div>
+
+
+    <!-- <div [@simpleFadeAnimation] *ngIf="connectoverlay" fxFlex=32.5% fxLayout fxLayout.xs="column" class="search-cards1">
+        <mat-card>
+            <span>CONNECTED</span>
+            <span>Kunal Singhal</span>
+            <button (click)="showCard()" mat-icon-button style="float: right;" aria-label="Example icon-button with a heart icon">
+                <mat-icon>clear</mat-icon>
+            </button>
+        </mat-card>
+    </div> -->
+
+
+
+</div>
+
+<!-- <div *ngIf="Obj">
+    <div *ngFor="let o of Obj">
+        {{o.id}}
+    </div>
+</div> -->
+
+
+
+<!-- <div>
+<img style="height: 300px; max-width:300px;" src="../../assets/pp5.webp">
+<button class="playbutton" mat-raised-button>Hover</button>
+</div> -->
+
+
+
+<!-- <button (click)="opensocket()" mat-raised-button>CLick</button> -->
+
+<!-- <div class="container">
+    <img style="height: 300px; max-width:300px;" src="../../assets/pp5.webp">
+    <div class="centered"><img (click)="playvideo()" style="height: 100px; max-width:100px;" src="../../assets/play.png"></div>
+</div> -->

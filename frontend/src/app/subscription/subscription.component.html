@@ -1,0 +1,212 @@
+<!-- sidenav bar with acordian expansions -->
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+  <mat-toolbar color="primary" class="example-toolbar">
+    <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
+    <h1 class="example-app-name">Account Settings</h1>
+    <div class="buttonbar">
+    <a mat-raised-button routerLink="/dashboard" color="primary">Home</a>
+    <a mat-raised-button routerLink="/profile" color="primary" style="margin-left: 10px;">Profile</a>
+  </div>
+  </mat-toolbar>
+
+  <mat-sidenav-container class="example-sidenav-container"
+                         [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+    <mat-sidenav #snav [mode]="mobileQuery.matches ? 'over' : 'side'"
+                 [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+      <mat-nav-list>
+
+          <mat-accordion>
+              <mat-expansion-panel style="max-width: 350px;">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Subscription Settings
+                  </mat-panel-title>
+                 </mat-expansion-panel-header>
+                 <div class="currplan">
+                 <button mat-raised-button style="width: 100%;" (click)="current_sub()">Your Current Plan</button></div>
+                 <div class="upplan">
+                 <button mat-raised-button style="width: 100%;" (click)="upgrade_sub()">Upgrade Your Plan</button></div>
+                 <div class="deacplan">
+                 <button mat-raised-button style="width: 100%;" (click)="discontinue_sub()">Discontinue Subscription Plan</button></div>
+                
+              </mat-expansion-panel>
+              <mat-expansion-panel style="max-width: 350px;">
+                <mat-expansion-panel-header>
+                  <mat-panel-title>
+                    Security Settings
+                  </mat-panel-title>
+                </mat-expansion-panel-header>
+                <div class="decprof">
+                <button disabled mat-raised-button style="width: 100%;" (click)="deactivate_sub()">Deactivate Profile</button></div>
+                <div class="decprof">
+                <button disabled mat-raised-button style="width: 100%;" (click)="delete_sub()">Delete Profile !!</button></div>
+                <div class="decprof">
+                <button disabled mat-raised-button style="width: 100%;" (click)="modify_sub()">Modify Password</button>
+                </div>
+              </mat-expansion-panel>
+            </mat-accordion>
+            
+      </mat-nav-list>
+    </mat-sidenav>
+
+    <mat-sidenav-content>
+        <div class="currcontent">
+          <h2>Your Current Plan Details:-</h2>
+            
+                <ul class="w3-ul w3-border">
+                    <li>Plan Type:      Regular</li>
+                    <li>Plan Tier:      silver</li>
+                    <li>Plan Ends:      12/12/2020</li>
+                </ul>
+                <button mat-raised-button (click)="openDialog()">Upgrade Plan</button>
+                <button mat-raised-button (click)="openDialog2()">Discontinue Plan ??</button>
+        </div>
+        
+        <!-- <div *ngIf="upgrade" class="uppgplan">
+        
+          <h2>Upgrade your plan</h2>
+            <form>
+                <h4>Choose Your Upgrade</h4>
+                <mat-form-field>
+                  <mat-label>Plan Type</mat-label>
+                  <mat-select [(ngModel)]="selectedValue" name="food">
+                    <mat-option *ngFor="let food of foods" [value]="food.value">
+                      {{food.viewValue}}
+                    </mat-option>
+                  </mat-select>
+                </mat-form-field>
+                <p> Selected Type: {{selectedValue}} </p>
+                
+                <h4>Choose Package</h4>
+                <mat-form-field>
+                  <mat-label>Package Type</mat-label>
+                  <select matNativeControl [(ngModel)]="selectedCar" name="car">
+                    <option value="" selected></option>
+                    <option *ngFor="let car of cars" [value]="car.value">
+                      {{car.viewValue}}
+                    </option>
+                  </select>
+                </mat-form-field>
+                <p> Selected Package: {{selectedCar}} </p>
+
+                <mat-form-field>
+                  <mat-label>DURATION</mat-label>
+                  <select matNativeControl [(ngModel)]="selectedFoodi" name="foodi">
+                    <option value="" selected></option>
+                    <option *ngFor="let foodi of foodis" [value]="foodi.value">
+                      {{foodi.viewValue}}
+                    </option>
+                  </select>
+                </mat-form-field>
+                <p> Selected Duration: {{selectedFoodi}} </p>
+              </form>
+              <a mat-raised-button routerLink="." color="primary" style="margin-left: 10px;">BUY!!</a>
+            </div> -->
+
+        <!-- <div *ngIf="discontinue && cplan"> 
+            <div class="currcontent">
+                <h2>Your Current Plan Details:-</h2>
+                  
+                      <ul class="w3-ul w3-border">
+                          <li>Plan Type:      Regular</li>
+                          <li>Plan Tier:      silver</li>
+                          <li>Plan Ends:      12/12/2020</li>
+                      </ul>
+                      <p>
+                          Sure, U Want to cancel?
+                          <button (click)=cplanfunc() mat-raised-button color="warn"
+                               matBadgePosition="before" matBadgeColor="accent">
+                            Yes,cancel!
+                          </button>
+                        </p>
+              </div>     
+        </div> -->
+
+        <div *ngIf="discontinue && !cplan"> 
+            <div class="currcontent">
+                <h2>No Current planscffffffffffffffff</h2>
+              </div>     
+        </div>
+       
+
+
+
+        <div *ngIf="deactivate" class="currcontent">
+            <p>
+                Sure, U Want to Deactivate Profile?
+                <button (click)=dpanfunc() mat-raised-button color="warn"
+                     matBadgePosition="before" matBadgeColor="accent">
+                  Yes,Deactivate!
+                </button>
+              </p>
+              
+
+              <ol *ngIf="!dpan">
+                  <li>
+                    <mat-form-field>
+                      <input matInput [(ngModel)]="password" placeholder="Enter Password">
+                    </mat-form-field>
+                  </li>
+                  <li>
+                    <button mat-raised-button (click)="openDialog()">DEACTIVATE !</button>
+                  </li>
+                  
+                </ol>
+                
+          </div>
+
+
+
+          <div *ngIf="delete" class="currcontent">
+              <p>
+                  Sure, U Want to Delete Profile?
+                  <button (click)=depanfunc() mat-raised-button color="warn"
+                       matBadgePosition="before" matBadgeColor="accent">
+                    Yes,Delete!
+                  </button>
+                </p>
+                
+  
+                <ol *ngIf="!depan">
+                    <li>
+                      <mat-form-field>
+                        <input matInput [(ngModel)]="password" placeholder="Enter Password">
+                      </mat-form-field>
+                    </li>
+                    <li>
+                      <button mat-raised-button (click)="openDialog()">DELETE !</button>
+                    </li>
+                    
+                  </ol>
+                  
+            </div>
+
+            <div *ngIf="modify" class="currcontent">
+                  <h2>Modify Password :</h2>
+                
+                    <mat-form-field style="max-width: 100%; display: flex;">
+                      <input matInput placeholder="Enter your Current password" [type]="hide ? 'password' : 'text'">
+                      <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                      </button>
+                    </mat-form-field>
+                  
+                    <mat-form-field style="max-width: 100%;">
+                        <input matInput placeholder="Enter your New password" [type]="hide ? 'password' : 'text'">
+                        <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                        </button>
+                    </mat-form-field>
+                    
+                    <button mat-raised-button color="accent" style="display: flex;">Update Password</button>
+                  
+                  
+                    
+            </div>
+
+
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</div>
+

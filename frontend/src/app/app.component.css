@@ -1,0 +1,63 @@
+.foot{
+    margin-top: auto;
+    padding: 12px;
+    font-size: 12px;
+    /* background: #171414; */
+    color: #fff;
+    display: block;
+    background-color: #02000a;
+  background-image: url("https://www.transparenttextures.com/patterns/cream-pixels.png");
+  /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+  }
+  
+  .subfoot{
+    align-items: center;
+    display: flex;
+    flex-flow: row wrap;
+    padding: 8px;
+    font-size: 12px;
+    color: #fff;
+  }
+  
+  
+  .subfoot .A{
+    font-family: 'Lobster Two', cursive;
+    color: red;
+    flex:25%;
+    font-size: 250%;
+    text-shadow: 0.5px 0.5px rgb(219, 66, 66);
+    text-align: center;
+  }
+  
+  .subfoot .B{
+    flex: 25%;
+    text-align: center;
+  }
+  
+  .subfoot .C{
+    flex: 25%;
+    text-align: center;
+  }
+  
+  .subfoot .D{
+    flex: 25%;
+    text-align: center;
+  }
+  
+  .subfoot .D .social{
+    height: 25px;
+    width: 25px;
+  }
+  
+  .subfoot .D .foot-style li{
+    padding: 4px;
+  }
+  
+  .foot-style{
+    list-style: none;
+  }
+  
+  .foot-style li{
+    padding: 8px;
+    
+  }

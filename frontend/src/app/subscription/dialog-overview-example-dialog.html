@@ -1,0 +1,48 @@
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<h1 mat-dialog-title>Choose a Plan..</h1>
+<div mat-dialog-content>
+    <div class="uppgplan">
+        
+        <h2>Upgrade your plan</h2>
+          <form>
+              <h4>Choose Your Upgrade</h4>
+              <mat-form-field>
+                <mat-label>Plan Type</mat-label>
+                <mat-select [(ngModel)]="selectedValue" name="food">
+                  <mat-option *ngFor="let food of foods" [value]="food.value">
+                    {{food.viewValue}}
+                  </mat-option>
+                </mat-select>
+              </mat-form-field>
+              <p> Selected Type: {{selectedValue}} </p>
+              
+              <h4>Choose Package</h4>
+              <mat-form-field>
+                <mat-label>Package Type</mat-label>
+                <select matNativeControl [(ngModel)]="selectedCar" name="car">
+                  <option value="" selected></option>
+                  <option *ngFor="let car of cars" [value]="car.value">
+                    {{car.viewValue}}
+                  </option>
+                </select>
+              </mat-form-field>
+              <p> Selected Package: {{selectedCar}} </p>
+
+              <mat-form-field>
+                <mat-label>DURATION</mat-label>
+                <select matNativeControl [(ngModel)]="selectedFoodi" name="foodi">
+                  <option value="" selected></option>
+                  <option *ngFor="let foodi of foodis" [value]="foodi.value">
+                    {{foodi.viewValue}}
+                  </option>
+                </select>
+              </mat-form-field>
+              <p> Selected Duration: {{selectedFoodi}} </p>
+            </form>
+            <a mat-raised-button routerLink="." color="primary" style="margin-left: 10px;">BUY!!</a>
+          </div>
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+  <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial (click)="upgrade_sub()"> Submit</button>
+</div>

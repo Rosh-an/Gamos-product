@@ -1,0 +1,80 @@
+<div class="about" [@scrollAnimation]="state">
+   
+    <div class="about1">
+        <div class="intro">
+            <h2 class="tagline1">The Freedom to Choose your Partner as Per Your Preference</h2>
+            <p class="tag">Check out our easy and quick match features</p>
+            <p><small>Follow these 4 easy steps to get your life partner</small></p>
+        </div>
+      </div>
+<!-- 
+    <div class="stepper">
+
+    <ng-template #stepOne>
+        <div #steppertext><button mat-raised-button color="primary" (click)="openDialog()">Free Registration</button></div>
+    </ng-template>
+
+      <ng-template #stepTwo>
+        <div #steppertext><button mat-raised-button color="primary" (click)="openDialog()">Search Profiles</button></div>
+      </ng-template>
+
+      <ng-template #stepThree>
+        <div #steppertext><button mat-raised-button color="primary" (click)="openDialog1()">Subscribe to Interact</button></div>
+      </ng-template>
+
+      <ng-template #stepFour>
+        <div #steppertext><button mat-raised-button color="primary" (click)="openDialog()">Marry</button></div>
+      </ng-template>
+
+      <ng-template [ngIf]="smallScreen" [ngIfElse]="bigScreen">
+        <mat-vertical-stepper linear #stepper >
+          <mat-step>
+            <ng-container *ngTemplateOutlet="stepOne"></ng-container>
+          </mat-step>
+          <mat-step>
+            <ng-container *ngTemplateOutlet="stepTwo"></ng-container>
+          </mat-step>
+          <mat-step>
+            <ng-container *ngTemplateOutlet="stepThree"></ng-container>
+          </mat-step>
+          <mat-step>
+            <ng-container *ngTemplateOutlet="stepFour"></ng-container>
+          </mat-step>
+        </mat-vertical-stepper>
+      </ng-template> -->
+
+      
+        
+      <mat-horizontal-stepper >
+          <mat-step color="accent" label="Register">
+           
+          </mat-step>
+          <mat-step color="accent" label="Browse Profiles">
+            
+          </mat-step>
+          <mat-step color="accent" label="Connect">
+            
+          </mat-step>
+          <mat-step color="accent" label="Marry">
+            
+          </mat-step>
+        
+          <!-- Icon overrides. -->
+          <ng-template matStepperIcon="phone">
+            <mat-icon>home</mat-icon>
+          </ng-template>
+          <ng-template matStepperIcon="chat">
+            <mat-icon>home</mat-icon>
+          </ng-template>
+        </mat-horizontal-stepper>
+      
+
+      
+    <!-- </div> -->
+
+    </div>
+
+
+
+
+    

@@ -1,0 +1,32 @@
+
+
+  <mat-card class="example-card" 
+          [@cardAnimator]="animationState" 
+          (@cardAnimator.done)="resetAnimationState()"
+          (swipeleft)="startAnimation('rotateOutUpLeft')"
+          (swiperight)="startAnimation('rotateOutUpRight')"
+          (swiperight)="change()"
+          (swipeleft)="change()"
+          (swipeup)="startAnimation('rotateOutUpRight')"
+          (swipedown)="startAnimation('flipOutY')"
+          >
+ 
+    <mat-card-content >
+        <div class="container">
+        <img mat-card-image src={{url}}>
+        <div class="centered">
+            Kunal Singhal {{card_no}} <br> Age : 21 <br> Bangalore
+        </div>
+        </div>
+      <p>
+          Learn one way to build applications with Angular and reuse your code and abilities to build apps for any deployment target. For web, mobile web, native mobile and native desktop.
+      </p>
+    </mat-card-content>
+    <mat-card-actions>
+      <button mat-raised-button color="primary" (tap)="startAnimation('wobble')">WOBBLE</button>
+      <button mat-raised-button color="primary" (tap)="startAnimation('swing')">SWING</button>
+      <button mat-raised-button (click)="change()" color="warn" (tap)="startAnimation('zoomOutRight')">NEXT</button>
+      <h5>Custom Events</h5>
+      <button hammertime mat-raised-button color="accent" (doubleTap)="startAnimation('jello')">JELLO (doubleTap)</button>
+    </mat-card-actions>
+  </mat-card>

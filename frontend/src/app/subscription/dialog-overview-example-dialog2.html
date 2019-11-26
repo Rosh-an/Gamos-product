@@ -1,0 +1,11 @@
+
+<h1 mat-dialog-title>Sure U Want to Cancel??</h1>
+<div mat-dialog-content>
+  
+    <p>Press Confirm to Discontinue plan..</p>
+  
+</div>
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">No Thanks</button>
+ <button mat-button [mat-dialog-close]="data.animal" (click)="diiscontinue_sub()" (click)=ccplanfunc() cdkFocusInitial>Confirm</button>
+</div>

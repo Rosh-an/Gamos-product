@@ -1,0 +1,90 @@
+<div class="container modal-body" mat-dialog-content>
+  <div class="message">
+    <div *ngIf="load" class="loader"></div>
+
+    <div *ngIf="!startsession && showfalse && showlog">
+      <mat-icon>error</mat-icon> {{ responseObj.token }}
+    </div>
+
+    <div *ngIf="startsession && showlog">
+      <button
+        *ngIf="toDashboard"
+        mat-dialog-close
+        mat-raised-button
+        routerLink="/dashboard">
+        Let's get started
+      </button>
+      <button
+        *ngIf="!toDashboard"
+        mat-dialog-close
+        mat-raised-button
+        routerLink="/profile">
+        Let's get started
+      </button>
+    </div>
+  </div>
+
+  <div novalidate>
+    <form [formGroup]="formGroup" (ngSubmit)="submit(formGroup.value)">
+      <p>
+        <mat-form-field>
+          <input
+            type="text"
+            required
+            matInput
+            placeholder="Email Address"
+            formControlName="userEmail"/>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field>
+          <input
+            type="password"
+            required
+            matInput
+            placeholder="Password"
+            formControlName="password"/>
+        </mat-form-field>
+      </p>
+
+      <!-- <p *ngIf="error" class="error">
+          {{ error }}
+        </p> -->
+
+      <!-- <div class="button">
+          <button type="submit" mat-button>Login</button>
+        </div>  -->
+
+      <div class="social">
+        <!-- <div class="col"> -->
+        <div class="fcbk">
+          <a href="#" class="fb btn" (click)="signInWithFB(formGroup.value)">
+            <i class="fa fa-facebook fa-fw"></i>
+          </a>
+        </div>
+        <div class="ggle">
+          <a
+            href="#"
+            class="google btn"
+            (click)="signInWithGoogle(formGroup.value)"
+            ><i class="fa fa-google fa-fw"> </i>
+          </a>
+        </div>
+      </div>
+
+      <div class="button">
+        <button type="submit" mat-button>
+          <a class="log btn">
+            Login
+          </a>
+        </button>
+      </div>
+    </form>
+
+    <h4>
+      Don't have an account?<span id="reg" (click)="openRegister()">
+        Register Now</span>
+    </h4>
+  </div>
+</div>

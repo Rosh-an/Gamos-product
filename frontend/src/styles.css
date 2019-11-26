@@ -1,0 +1,22 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+
+
+    img.vert-move {
+        animation: mover 1s infinite  alternate;
+      }
+      
+      img.vert-move {
+        
+        animation: mover 1s infinite  alternate;
+      }
+
+      @keyframes mover {
+        0% { transform: translateY(10px); }
+        100% { transform: translateY(-10px); }
+      }
+
+

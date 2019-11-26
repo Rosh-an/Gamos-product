@@ -1,0 +1,129 @@
+.search-panel{
+    display: flex;
+    flex-wrap: wrap;
+    margin: auto;
+    align-content: center;
+}
+
+.search-cards{
+    padding-top: 10px;
+    transition: all 2s ease;
+}
+
+.search-cards1{
+    transform: scaleY(1);
+    transform-origin: bottom center;
+    background: blue;
+    transition: transform 0.3s;
+}
+
+.example-card{
+    padding: 0;
+    
+}
+
+#name{
+    color: white;
+    opacity: 0.9;
+}
+
+
+mat-card-actions{
+    text-align: center;
+    padding: 5px;
+    margin: 0;
+}
+
+.card-button, .card-button1{
+    z-index: 20;
+    
+}
+
+.card-button1:hover{
+    color: green;
+    transform:scale(1.2);
+}
+
+.card-button:hover{
+    color: pink;
+    transform:scale(1.2);
+}
+
+
+.card-name{
+    float: left;
+    padding:5px;
+    padding-top: 10px;
+    font-weight: bold;
+    letter-spacing: 0.1rem;
+    opacity: 0.8;
+}
+
+
+.overlay{
+   position: absolute;
+   top:40%;
+   right: 50%;
+   z-index: 100;
+   color: white;
+   background: blue;
+   font-size: 15px;
+}
+
+.vidoverlay{
+    background: red;
+}
+
+.video{
+    position: relative;
+    
+}
+
+.video:hover{
+    cursor: pointer;
+}
+
+@keyframes example {
+from {background-color: red;}
+to {background-color: yellow;}
+}
+
+.overlay{
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  transition: .5s ease;
+  background-color: #008CBA;
+}
+
+.overlay1{
+    min-height: 200px;
+    position: relative;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;
+    opacity: 1;
+    transition: .5s ease;
+    background-color: #008CBA;
+  }
+.overlay2{
+    min-height: 200px;
+    position: relative;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    width: 100%;    
+    opacity: 1;
+    transition: .5s ease;
+    background-color: pink;
+}

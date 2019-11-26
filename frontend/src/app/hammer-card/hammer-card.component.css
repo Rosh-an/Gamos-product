@@ -1,0 +1,41 @@
+img {
+    width: 200px}
+
+.example-card {
+    text-align: center;
+   
+    
+}
+
+.container {
+    position: relative;
+    text-align: center;
+    color: white;
+    
+  }
+
+  .centered {
+    background: linear-gradient(rgba(5, 5, 5, 0.692), rgba(12, 12, 12, 0.5));
+    color: white;
+    font-size: 15px;
+    padding: 1%;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
+
+  .centered:hover{
+    opacity: 0;
+    cursor: pointer;
+  }
+
+  .container:hover >  .centered{
+      transition: 1s ease-out;
+      opacity: 0;
+      cursor: pointer;
+  }
+
+  .container:hover{
+      cursor: pointer;
+  }

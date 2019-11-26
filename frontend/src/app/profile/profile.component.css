@@ -1,0 +1,309 @@
+
+
+/* ----------------
+    Navigation bar
+-------------------*/
+
+.navbar mat-icon{
+  color: white;
+}
+
+.logo{
+  /* font-size: 30px; */
+  font-family: 'Lobster Two', cursive;
+  font-size:200%;
+  color:#E50914;
+  text-align: center;
+  margin: auto;
+}
+
+.nav{
+  align-items: center;
+}
+
+.navbar{
+    justify-content: space-between;
+    /* background-color: black; */
+    /* background-color: black; */
+    /* position: absolute; */
+    /* background-color:transparent; */
+    
+    backdrop-filter: saturate(180%) blur(20px);
+    
+    z-index:999;
+    /* opacity: 0.9; */
+    /* z-index:2;
+    width: 100%; */
+    background-color: #02000a;
+    background-image: url("https://www.transparenttextures.com/patterns/cream-pixels.png");
+    
+  }
+
+  .progress{
+  animation: colorchange 10s;
+  }
+
+  @keyframes colorchange{
+    0%   {background: rgba(255, 251, 0, 0.651);}
+    25%  {background: rgba(255, 251, 0, 0.377);}
+    50%  {background: rgba(255, 0, 0, 0.637);}
+    75%  {background: rgba(255, 4, 4, 0.616);}
+    100% {background: rgb(255, 0, 0);}
+  }
+  
+  
+  
+  .navbar a{
+    padding-right: 1rem;
+    color: white;
+    text-decoration-style: none;
+    font-size: 50px;
+  }
+  
+  .navbar a:hover{
+    color: yellow;
+    cursor: pointer;
+  }
+
+
+  /* LOGO */
+
+  .logo1{
+    height: 40%;
+    width: 100%;
+  }
+
+
+  /* BODY*/
+  .start{
+    margin: auto;
+    background-color: green;
+
+  }
+
+  .head{
+    color: rgb(238, 238, 31);
+  }
+
+  /* --------------------------------
+        Form
+  ------------------------------------*/
+
+  /* .example-container {
+    display: flex;
+    flex-direction: column;
+  }
+  
+  .example-container > * {
+    width: 100%;
+  }
+   */
+
+   #speechinput {
+    
+        width: 25px; 
+    
+        height: 25px; 
+    
+        cursor:pointer;
+    
+        border: none;
+    
+        position: absolute;
+    
+        margin-left: 5px;
+    
+        outline: none;
+    
+        background: green;
+
+        color: grey;
+    
+    }
+    
+.example-container {
+  height:100%;
+  top:0;
+}
+
+mat-drawer{
+  background: black;
+  top:5%;
+  color: white;
+  width: 250px;
+  background-image: url("https://www.transparenttextures.com/patterns/cream-pixels.png");
+}
+
+mat-drawer-content{
+  background: white;
+  color: white;
+}
+
+mat-form-field{
+  color: white;
+}
+
+.container form{
+  
+  padding: 2%;
+}
+
+
+  /* --------------------------------
+        Personal Form
+  ------------------------------------*/
+
+  
+
+  .container {
+    padding: 10px;
+    margin: auto;
+    align-items: center;
+    box-shadow: 0 19px 38px rgba(5, 5, 5, 0.3), 0 15px 12px rgba(5, 5, 5, 0.22);
+    
+  }
+  
+  .form {
+    min-width: 150px;
+    max-width: 500px;
+    width: 100%;
+    margin: auto;
+  }
+  
+  .form-element {
+    /* padding: 5px 0px 25px 2px; */
+    
+  }
+
+  .example-card{
+    background: transparent;
+    height: 100%;
+  }
+
+
+
+
+  mat-form-field{
+    background-color: transparent;
+    margin:2%;
+    padding-bottom: 0;
+    background-blend-mode: color;
+    border-radius:30rem;
+    
+     /* -moz-border-radius:5px;
+     -webkit-border-radius:10px; */
+  }
+
+  
+
+  
+
+  input[type=text], select {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    /* border-radius: 4px;
+    box-sizing: border-box; */
+    /* border-bottom-left-radius: 3px;
+    border-bottom-right-radius: 3px; */
+  }
+
+  element.style {
+    padding-bottom: 0px;
+}
+
+  ::ng-deep .mat-form-field-placeholder{
+
+    color:white;
+  }
+  
+  ::ng-deep .mat-focused .mat-form-field-placeholder{
+  
+    color:white;
+  }
+
+
+
+  /*-------------------------------
+    BACKGROUND
+  ------------------------*/
+
+  * {
+    box-sizing: border-box;
+  }
+  
+  .bg-image {
+    /* The image used */
+    background-image: url(../../assets/hero2.webp);
+  
+    /* Add the blur effect */
+    filter: blur(8px);
+    
+  
+    /* Full height */
+    height: 200%;
+  
+    /* Center and scale the image nicely */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+
+  .back{
+    background-position: fixed; 
+    background:linear-gradient(0deg,rgba(17, 3, 15, 0.6),rgba(206, 40, 178, 0.795)),url("../../assets/hero2.webp");
+    /* background-image: url("../../assets/hero2.webp"); */
+    background-size: cover;
+    overflow: hidden;
+    height: 120%;
+  }
+  
+  /* Position text in the middle of the page/image */
+  .bg-text {
+    
+     /* Fallback color */
+    /* background-color: rgb(0,0,0);    */
+    /* Black w/opacity/see-through */
+    background-color: rgba(0, 0, 0, 0.4); 
+    
+    /* backdrop-filter: blur(20px); */
+    /* background-color: rgba(255, 255, 255, 0.5); */
+    /* background-color: white; */
+    color: black;
+    font-weight: bold;
+    
+    /* position: absolute; */
+    /* top: 90%;
+    left: 50%;
+    transform: translate(-50%, -50%); */
+    z-index: 2;
+    /* width: 80%; */
+    padding: 20px;
+    text-align: center;
+  }
+
+
+
+  /* THEME */
+
+  .alternate-button {
+    @include mat-button-theme($alternate-theme);
+  }
+
+
+  /***********************************************
+            UPLOAD PFP AND VIDEO
+  ***********************************************/
+
+  .uploadbutton{
+    position: absolute;
+    margin-top: -290px;
+    
+  }
+
+
+
+  

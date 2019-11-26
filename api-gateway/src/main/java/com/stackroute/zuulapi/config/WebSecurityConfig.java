@@ -1,0 +1,36 @@
+package com.stackroute.zuulapi.config;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+
+import javax.servlet.http.HttpServletResponse;
+
+@Configuration
+@EnableWebSecurity
+@EnableGlobalMethodSecurity(prePostEnabled = true)
+public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private JwtRequestFilter jwtRequestFilter;
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http.cors().and().csrf().disable()
+                // dont authenticate this particular request
+                .authorizeRequests().antMatchers("/auth/register","/auth/login").permitAll().anyRequest().authenticated().and().
+                exceptionHandling().authenticationEntryPoint((req, rsp, e) -> rsp.sendError(HttpServletResponse.SC_ACCEPTED)).and().
+                addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class).
+                /** make sure we use stateless session; session won't be used to
+                * store user's state.*/
+              exceptionHandling().and().
+        sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        /** Add a filter to validate the tokens with every request;*/
+    }
+
+}

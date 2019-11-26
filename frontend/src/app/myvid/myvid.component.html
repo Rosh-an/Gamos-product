@@ -1,0 +1,11 @@
+
+
+
+<mat-video *ngIf="showvideo" style="transition: 2s">
+    <source matVideoSource src="{{vidurl}}" type="video/mp4">
+</mat-video>
+
+<div *ngIf="!showvideo">
+    No video
+</div>
+

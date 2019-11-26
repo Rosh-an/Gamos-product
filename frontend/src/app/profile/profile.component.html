@@ -1,0 +1,549 @@
+<div>
+        <mat-toolbar color="primary" class="navbar" >
+            <button matTooltip="Progress Bar" mat-button (click)="openside()" style="z-index: 5;background-color: rgb(255, 0, 0);top:0" class="progress"><mat-icon>menu</mat-icon></button>
+            <div class="logo">Gamos</div>
+            <div>
+                <a href="#" matTooltip="Logout" (click)="logout()"><mat-icon>power_settings_new</mat-icon></a>
+            </div>
+        </mat-toolbar>
+</div>
+
+
+
+
+
+
+   <mat-drawer-container class="example-container">
+      <mat-drawer style="top: 0px" mode="side over" [(opened)]="side">
+
+          <img class="logo1" src="../../assets/logo.webp">
+
+          <!-- <div class="uploadbutton"><button mat-raised-button>Upload</button></div> -->
+          <mat-divider></mat-divider>
+          <mat-vertical-stepper linear #stepper>
+            <mat-step [stepControl]="firstFormGroup">
+              <form [formGroup]="firstFormGroup">
+                <ng-template matStepLabel completed="stage1"><button mat-raised-button (click)="blockstatus()">General Details</button></ng-template>
+                  <!-- <div *ngIf="status; then thenblock"></div> -->
+                <!-- <mat-form-field>
+                  <input matInput placeholder="Last name, First name" formControlName="firstCtrl" required>
+                </mat-form-field> -->
+                <div>
+                    <button mat-button matStepperNext style="color: white; background-color: blueviolet" [disabled]="(!stage1)">Next</button>
+                  </div>
+              </form>
+            </mat-step>
+            <mat-step [stepControl]="secondFormGroup">
+              <form [formGroup]="secondFormGroup">
+                <!-- <ng-template matStepLabel completed=false><button mat-raised-button (click)="blockstatus1()" [disabled]="(!stage1)">Personal Info</button></ng-template> -->
+                <ng-template matStepLabel completed="stage2"><button mat-raised-button (click)="blockstatus1()" [disabled]="(!stage1)">Personal Info</button></ng-template>
+                <!-- <div *ngIf="status1; then thenblock1"></div> -->
+
+                <div>
+                    <button mat-button matStepperPrevious style="color: white; background-color: blueviolet;margin:5%">Back</button>
+                    <button mat-button matStepperNext style="color: white; background-color: blueviolet;margin:5%">Next</button>
+                  </div>
+              </form>
+            </mat-step>
+            <mat-step [stepControl]="familyFormGroup">
+              <form [formGroup]="familyFormGroup">
+                <!-- <ng-template matStepLabel completed=false><button mat-raised-button (click)="blockstatus1()" [disabled]="(!stage1)">Personal Info</button></ng-template> -->
+                <ng-template matStepLabel completed="stage3"><button mat-raised-button (click)="blockstatusf()" [disabled]="(!stage2)">Family Info</button></ng-template>
+                <!-- <div *ngIf="status1; then thenblock1"></div> -->
+
+                <div>
+                    <button mat-button matStepperPrevious style="color: white; background-color: blueviolet;margin:5%">Back</button>
+                    <button mat-button matStepperNext style="color: white; background-color: blueviolet;margin:5%">Next</button>
+                  </div>
+              </form>
+            </mat-step>
+            <mat-step [stepControl]="thirdFormGroup">
+                <form [formGroup]="thirdFormGroup">
+                  <ng-template matStepLabel completed=true><button mat-raised-button (click)="blockstatus2()" [disabled]="(!stage3)">Profession</button></ng-template>
+                  <!-- <div *ngIf="status1; then thenblock1"></div> -->
+
+                  <div>
+                    <button mat-button matStepperPrevious style="color: white; background-color: blueviolet;margin:5%">Back</button>
+                    <button mat-button matStepperNext style="color: white; background-color: blueviolet;margin:5%">Next</button>
+                  </div>
+                </form>
+              </mat-step>
+              <mat-step [stepControl]="fourthFormGroup">
+                  <form [formGroup]="fourthFormGroup">
+                    <ng-template matStepLabel completed=true><button mat-raised-button (click)="blockstatus3()" [disabled]="(!stage3)">Education</button></ng-template>
+                    <!-- <div *ngIf="status1; then thenblock1"></div> -->
+
+                    <div>
+                      <button mat-button matStepperPrevious style="color: white; background-color: blueviolet;margin:5%">Back</button>
+                      <button mat-button matStepperNext style="color: white; background-color: blueviolet;margin:5%">Next</button>
+                    </div>
+                  </form>
+                </mat-step>
+                <mat-step [stepControl]="fifthFormGroup">
+                  <form [formGroup]="fifthFormGroup">
+                    <ng-template matStepLabel completed=true><button mat-raised-button (click)="blockstatus4()" [disabled]="(!stage3)">Horoscope</button></ng-template>
+                    <!-- <div *ngIf="status1; then thenblock1"></div> -->
+
+                    <div>
+                      <button mat-button matStepperPrevious style="color: white; background-color: blueviolet;margin:5%">Back</button>
+                      <button mat-button matStepperNext style="color: white; background-color: blueviolet;margin:5%">Next</button>
+                    </div>
+                  </form>
+                </mat-step>
+            <mat-step>
+              <ng-template matStepLabel disabled>Media Upload</ng-template>
+              You are now done.
+              <!-- <div>
+                <button mat-button matStepperPrevious>Back</button>
+                <button mat-button (click)="stepper.reset()">Reset</button>
+              </div> -->
+            </mat-step>
+          </mat-vertical-stepper>
+
+
+      </mat-drawer>
+      <mat-drawer-content style="overflow: hidden"  class="dark">
+          <!-- <div class="bg-image"> -->
+          <div class="back">
+              <section class="example-section">
+                  <mat-progress-bar
+                     color="warn"
+                     value={{progress}} >
+                  </mat-progress-bar>
+                </section>
+
+          <!-- <div *ngIf="startstatus" class="start bg-text"><button mat-button color="primary" (click)="openside()"><span>
+            Click here to get started -->
+            <!-- <div [class.alternate-button]="isAlternateMode">
+                <button mat-button>Save changes</button>
+            </div> -->
+          <!-- </span></button></div> -->
+      <div *ngIf="status" class="container bg-text">
+        <mat-card style="padding: 0" class="example-card"
+        [@cardAnimator]="animationState"
+        (@cardAnimator.done)="resetAnimationState()"
+        (swipeleft)="startAnimation('rotateOutUpLeft')"
+        (swiperight)="startAnimation('rotateOutUpRight')"
+        (swipeup)="startAnimation('rotateOutUpRight')"
+        (swipedown)="startAnimation('flipOutY')">
+      <form [formGroup]="firstFormGroup" class="form" ease-in>
+          <span class="head">Fill in the basic details while we get best matches for you</span>
+        <div>
+            <mat-form-field class="form-element" >
+                <input matInput placeholder="First name" formControlName="firstName" required>
+                <!-- <button mat-icon-button matPrefix [disabled]="service.started$ | async"  (click)="listen()"> -->
+
+            </mat-form-field>
+            <mat-form-field class="form-element" >
+                <input matInput placeholder="Last Name" formControlName="lastName" required>
+
+            </mat-form-field>
+
+            <mat-form-field class="form-element" >
+              <input matInput placeholder="Current City" formControlName="city" required>
+          </mat-form-field>
+          <mat-form-field class="form-element" >
+            <input matInput placeholder="Native City" formControlName="nativeCity" required>
+          </mat-form-field>
+
+              <mat-form-field class="form-element">
+                  <mat-label>Gender</mat-label>
+                    <mat-select formControlName="gender" required>
+                      <mat-option *ngFor="let gen of gender" [value]="gen.value">
+                        {{gen.viewValue}}
+                      </mat-option>
+                    </mat-select>
+                </mat-form-field>
+                <mat-form-field class="form-element">
+                    <mat-label>Date of Birth</mat-label>
+                    <input matInput [min]="minDate" [max]="maxDate" [matDatepicker]="picker" placeholder="MM/DD/YYYY" formControlName="age" required>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  <!-- <input matInput placeholder="Date of Birth" formControlName="age" type="date" required> -->
+                </mat-form-field>
+
+            <!-- <form class="example-form">
+              <mat-form-field class="example-full-width">
+                <input type="text" placeholder="Pick one" aria-label="Number" matInput [formControl]="myControl" [matAutocomplete]="auto">
+                <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                  <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                    {{option}}
+                  </mat-option>
+                </mat-autocomplete>
+              </mat-form-field>
+            </form> -->
+
+
+            <mat-form-field class="form-element">
+              <mat-label>Religion</mat-label>
+              <input placeholder="Religion" aria-label="Number" matInput formControlName="religion" [matAutocomplete]="auto">
+              <mat-autocomplete autoActiveFirstOption #auto="matAutocomplete">
+                  <mat-option *ngFor="let option of filteredOptions | async" [value]="option">
+                      {{option}}
+                </mat-option>
+              </mat-autocomplete>
+
+
+                <!-- <mat-select formControlName="religion" required>
+                  <mat-option *ngFor="let rel of religion" [value]="rel.value">
+                    {{rel.viewValue}}
+                  </mat-option>
+                </mat-select> -->
+            </mat-form-field>
+
+
+            <mat-form-field class="form-element">
+              <input matInput placeholder="Mother Tongue" formControlName="tongue" required>
+            </mat-form-field>
+
+            <mat-form-field class="form-element" >
+              <input matInput placeholder="Phone Number" formControlName="phone" required>
+              <mat-icon matSuffix>phone</mat-icon>
+              <mat-error *ngIf="!firstFormGroup.controls['phone'].valid && firstFormGroup.controls['phone'].touched">
+                {{ getErrorPhone() }}
+              </mat-error>
+            </mat-form-field>
+
+            <mat-form-field class="form-element">
+              <input matInput disabled value={{eid}}>
+            </mat-form-field>
+
+
+            <div>
+                <button mat-raised-button color="primary" type="button" (click)="stage1complete()" (click)="blockstatus1()" (click)="submit(firstFormGroup.value)" [disabled]="!firstFormGroup.valid" (tap)="startAnimation('zoomOutRight')">Save and Proceed</button>
+                <!-- <button mat-button (click)="openside()" style="z-index: 5;background-color: green;top:0">Proceed</button> -->
+            </div>
+            <!-- <div>
+                <button mat-button matStepperNext>Next</button>
+            </div> -->
+        </div>
+      </form>
+    </mat-card>
+    </div>
+
+    <div *ngIf="status1" class="container bg-text" >
+        <mat-card style="padding: 0" class="example-card"
+        [@cardAnimator]="animationState"
+        (@cardAnimator.done)="resetAnimationState()"
+        (swipeleft)="startAnimation('rotateOutUpLeft')"
+        (swiperight)="startAnimation('rotateOutUpRight')"
+        (swipeup)="startAnimation('rotateOutUpRight')"
+        (swipedown)="startAnimation('flipOutY')">
+      <form [formGroup]="secondFormGroup" class="form" ease-in>
+          <span class="head">Fill in the basic details while we get best matches for you</span>
+          <div>
+              <mat-form-field class="form-element">
+                  <input matInput placeholder="Height (in feet)" formControlName="height" type="number" required>
+                  <!-- <button mat-icon-button matPrefix [disabled]="service.started$ | async"  (click)="listen()"> -->
+
+              </mat-form-field>
+              <mat-form-field class="form-element">
+                  <input matInput placeholder="Weight (in kgs)" formControlName="weight" type="number" required>
+              </mat-form-field>
+              <mat-form-field class="form-element">
+                <input matInput placeholder="Hobbies (Atleast One)" formControlName="hobbies" required>
+              </mat-form-field>
+              <mat-form-field class="form-element">
+                  <input matInput placeholder="Interests (Atleast One)" formControlName="interests" required>
+              </mat-form-field>
+              <mat-form-field class="form-element">
+                  <mat-label>Food Preferance?</mat-label>
+                  <mat-select formControlName="diet" required>
+                    <mat-option value="veg">Vegetarian</mat-option>
+                    <mat-option value="non-veg">Non-Vegetarian</mat-option>
+                  </mat-select>
+                <!-- <input matInput placeholder="Food Preferance" formControlName="diet" required> -->
+              </mat-form-field>
+              <mat-form-field class="form-element">
+                  <mat-label>Drink?</mat-label>
+                    <mat-select formControlName="drink" required>
+                      <mat-option value="yes">Yes</mat-option>
+                      <mat-option value="no">No</mat-option>
+                      <mat-option value="undisclosed">Undisclosed</mat-option>
+                    </mat-select>
+                </mat-form-field>
+              <mat-form-field class="form-element">
+                  <mat-label>Smoke?</mat-label>
+                  <mat-select formControlName="smoke" required>
+                    <mat-option value="yes">Yes</mat-option>
+                    <mat-option value="no">No</mat-option>
+                    <mat-option value="undisclosed">Undisclosed</mat-option>
+                  </mat-select>
+              </mat-form-field>
+              <mat-form-field class="form-element">
+                  <mat-label>Physically Challenged?</mat-label>
+                  <mat-select formControlName="challenged" required>
+                      <mat-option value="yes">Yes</mat-option>
+                      <mat-option value="no">No</mat-option>
+                  </mat-select>
+              </mat-form-field>
+              <mat-form-field class="form-element">
+                  <mat-label>Marital Status</mat-label>
+                  <mat-select formControlName="marital" required>
+                    <mat-option value="divorced">Divorced</mat-option>
+                    <mat-option value="widowed">Widowed</mat-option>
+                    <mat-option value="never married">Never married</mat-option>
+                    <mat-option value="never married">Separated</mat-option>
+                  </mat-select>
+              </mat-form-field>
+              <mat-form-field class="form-element">
+                  <mat-label>Want to settle abroad?</mat-label>
+                  <mat-select formControlName="abroad" required>
+                      <mat-option value="yes">Yes</mat-option>
+                      <mat-option value="no">No</mat-option>
+                  </mat-select>
+              </mat-form-field>
+              <mat-form-field class="form-element" style="width: 100%">
+                  <textarea #message matInput placeholder="About Yourself" formControlName="yourself"></textarea>
+                  <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+                  <!-- <input matInput placeholder="About Yourself" formControlName="yourself"> -->
+              </mat-form-field>
+
+              <div>
+                  <button mat-raised-button color="primary" type="button" (click)="stage1complete()" (click)="blockstatusf()" (click)="submit(secondFormGroup.value)" [disabled]="!secondFormGroup.valid" (tap)="startAnimation('zoomOutRight')">Save and Proceed</button>
+                  <!-- <button mat-button (click)="openside()" style="z-index: 5;background-color: green;top:0">Proceed</button> -->
+              </div>
+
+          </div>
+        </form>
+        </mat-card>
+      </div>
+
+
+      <div *ngIf="statusf" class="container bg-text">
+          <mat-card style="padding: 0" class="example-card"
+          [@cardAnimator]="animationState"
+          (@cardAnimator.done)="resetAnimationState()"
+          (swipeleft)="startAnimation('rotateOutUpLeft')"
+          (swiperight)="startAnimation('rotateOutUpRight')"
+          (swipeup)="startAnimation('rotateOutUpRight')"
+          (swipedown)="startAnimation('flipOutY')">
+        <form [formGroup]="familyFormGroup" class="form" ease-in>
+            <span class="head">Fill in the basic details while we get best matches for you</span>
+          <div>
+              <mat-form-field class="form-element" style="width: 60%">
+                  <input matInput placeholder="No. of members in family" formControlName="members" type="number" required>
+                  <!-- <button mat-icon-button matPrefix [disabled]="service.started$ | async"  (click)="listen()"> -->
+
+              </mat-form-field>
+              <mat-form-field class="form-element">
+                  <input matInput placeholder="Father's name" formControlName="fatherName">
+              </mat-form-field>
+
+              <mat-form-field class="form-element">
+                  <input matInput placeholder="Father's Occupation" formControlName="fatherOccupation">
+              </mat-form-field>
+              <mat-form-field class="form-element">
+                <input matInput placeholder="Mother's name" formControlName="motherName">
+              </mat-form-field>
+              <mat-form-field class="form-element">
+                <input matInput placeholder="Mother's Occupation" formControlName="motherOccupation">
+              </mat-form-field>
+              <mat-form-field class="form-element">
+                <input matInput placeholder="No. of younger brothers" formControlName="youngb" type="number">
+              </mat-form-field>
+              <mat-form-field class="form-element">
+                <input matInput placeholder="No. of younger sisters" formControlName="youngs" type="number">
+              </mat-form-field>
+              <mat-form-field class="form-element">
+                <input matInput placeholder="No. of elder brothers" formControlName="elderb" type="number">
+              </mat-form-field>
+              <mat-form-field class="form-element">
+                <input matInput placeholder="No. of elder sisters" formControlName="elders" type="number">
+              </mat-form-field>
+              <!-- <mat-form-field class="form-element" style="padding: 0% 5%"> -->
+                  <!-- <input matInput placeholder="Religion" > -->
+              <mat-form-field class="form-element" style="width: 100%">
+                <!-- <input matInput placeholder="About Family" formControlName="aboutf"> -->
+                <textarea #message matInput placeholder="About Family" formControlName="aboutf"></textarea>
+                <mat-hint align="end">{{message.value.length}} / 256</mat-hint>
+              </mat-form-field>
+
+
+              <div>
+                  <button mat-raised-button color="primary" type="button" (click)="stage2complete()" (click)="blockstatus2()" (click)="submit(familyFormGroup.value)" (click)="addToRegistryPersonal()" [disabled]="!familyFormGroup.valid" (tap)="startAnimation('zoomOutRight')">Save and Proceed</button>
+                  <!-- <button mat-button (click)="openside()" style="z-index: 5;background-color: green;top:0">Proceed</button> -->
+              </div>
+              <!-- <div>
+                  <button mat-button matStepperNext>Next</button>
+              </div> -->
+          </div>
+        </form>
+        </mat-card>
+      </div>
+
+
+      <div *ngIf="status2" class="container bg-text" style="top:70%">
+          <mat-card style="padding: 0" class="example-card"
+          [@cardAnimator]="animationState"
+          (@cardAnimator.done)="resetAnimationState()"
+          (swipeleft)="startAnimation('rotateOutUpLeft')"
+          (swiperight)="startAnimation('rotateOutUpRight')"
+          (swipeup)="startAnimation('rotateOutUpRight')"
+          (swipedown)="startAnimation('flipOutY')">
+          <form [formGroup]="thirdFormGroup" class="form" ease-in>
+              <div>
+                  <span class="head">Fill in the basic details while we get best matches for you</span>
+          <div>
+              <mat-form-field class="form-element">
+                  <input matInput placeholder="Profession" formControlName="profession" required>
+                  <!-- <button mat-icon-button matPrefix [disabled]="service.started$ | async"  (click)="listen()"> -->
+
+              </mat-form-field>
+              <mat-form-field class="form-element">
+                <input matInput placeholder="Current Company" formControlName="currentCompany" required>
+              </mat-form-field>
+              <mat-form-field class="form-element">
+                  <input matInput placeholder="Income (lakhs per annum)" formControlName="income" type="number" required>
+              </mat-form-field>
+              <mat-form-field class="form-element">
+                  <input matInput placeholder="Work Experience (in years)" formControlName="experience" type="number">
+              </mat-form-field>
+              <mat-form-field class="form-element">
+                  <input matInput placeholder="Work Location" formControlName="location" required>
+              </mat-form-field>
+              <mat-form-field class="form-element">
+                  <input matInput placeholder="LinkedIn url" formControlName="linkedin" type="url">
+                  <mat-error *ngIf="thirdFormGroup.controls['linkedin'].hasError('pattern')">
+                    {{getUrlError()}}
+                  </mat-error>
+
+              </mat-form-field>
+              <div>
+                  <button mat-raised-button color="primary" type="button" (click)="stage3complete()" (click)="blockstatus3()" (click)="submit(thirdFormGroup.value)" (click)="addToRegistryProfessional()" [disabled]="!thirdFormGroup.valid" (tap)="startAnimation('zoomOutRight')">Save and Proceed</button>
+                  <button mat-raised-button color="primary" type="button" (click)="stage3complete()" (click)="blockstatus3()" (click)="addToRegistryProfessional()" (tap)="startAnimation('zoomOutRight')">Skip</button>
+                  <!-- <button mat-button (click)="openside()" style="z-index: 5;background-color: green;top:0">Proceed</button> -->
+              </div>
+
+          </div>
+              </div>
+              </form>
+              </mat-card>
+          </div>
+
+
+          <div *ngIf="status3" class="container bg-text" style="top:70%">
+              <mat-card style="padding: 0" class="example-card"
+              [@cardAnimator]="animationState"
+              (@cardAnimator.done)="resetAnimationState()"
+              (swipeleft)="startAnimation('rotateOutUpLeft')"
+              (swiperight)="startAnimation('rotateOutUpRight')"
+              (swipeup)="startAnimation('rotateOutUpRight')"
+              (swipedown)="startAnimation('flipOutY')">
+              <form [formGroup]="fourthFormGroup" class="form" ease-in>
+                  <div>
+                      <span class="head">Fill in the basic details while we get best matches for you</span>
+              <div>
+                  <mat-form-field class="form-element">
+                      <input matInput placeholder="Highest Education" formControlName="education" required>
+                      <!-- <button mat-icon-button matPrefix [disabled]="service.started$ | async"  (click)="listen()"> -->
+
+                  </mat-form-field>
+                  <mat-form-field class="form-element">
+                      <input matInput placeholder="College Name" formControlName="college" required>
+                  </mat-form-field>
+                  <mat-form-field class="form-element">
+                    <input matInput placeholder="College City" formControlName="city" required>
+                  </mat-form-field>
+                  <mat-form-field class="form-element">
+                      <input matInput placeholder="Passing Year" formControlName="passingYear">
+                  </mat-form-field>
+                  <div>
+                      <button mat-raised-button color="primary" type="button" (click)="stage4complete()" (click)="blockstatus4()" (click)="submit(fourthFormGroup.value)" (click)="addToRegistryEducation()" [disabled]="!fourthFormGroup.valid" (tap)="startAnimation('zoomOutRight')">Save and Proceed</button>
+                      <button mat-raised-button color="primary" type="button" (click)="stage4complete()" (click)="blockstatus4()" (click)="addToRegistryEducation()" (tap)="startAnimation('zoomOutRight')">Skip</button>
+                      <!-- <button mat-button (click)="openside()" style="z-index: 5;background-color: green;top:0">Proceed</button> -->
+                  </div>
+
+              </div>
+                  </div>
+                </form>
+                </mat-card>
+              </div>
+
+
+
+              <div *ngIf="status4" class="container bg-text" style="top:70%">
+                  <mat-card style="padding: 0" class="example-card"
+                  [@cardAnimator]="animationState"
+                  (@cardAnimator.done)="resetAnimationState()"
+                  (swipeleft)="startAnimation('rotateOutUpLeft')"
+                  (swiperight)="startAnimation('rotateOutUpRight')"
+                  (swipeup)="startAnimation('rotateOutUpRight')"
+                  (swipedown)="startAnimation('flipOutY')">
+                  <form [formGroup]="fifthFormGroup" class="form" ease-in>
+                      <div>
+                          <span class="head">Fill in the basic details while we get best matches for you</span>
+                  <div>
+                      <mat-form-field class="form-element">
+                          <input matInput placeholder="Time of Birth" formControlName="timeOfBirth" type="time" required>
+                          <!-- <button mat-icon-button matPrefix [disabled]="service.started$ | async"  (click)="listen()"> -->
+
+                      </mat-form-field>
+                      <mat-form-field class="form-element">
+                          <input matInput placeholder="Place of Birth" formControlName="placeOfBirth" required>
+                      </mat-form-field>
+                      <!-- <mat-form-field class="form-element">
+                        <input matInput placeholder="Date of Birth" formControlName="dateOfBirth" type="date" required>
+                      </mat-form-field> -->
+                      <mat-form-field class="form-element">
+                          <mat-label>Are You Mangklik?</mat-label>
+                          <mat-select formControlName="manglik" required>
+                            <mat-option value="yes">Yes</mat-option>
+                            <mat-option value="no">No</mat-option>
+                          </mat-select>
+                      </mat-form-field>
+                      <div>
+                          <button mat-raised-button color="primary" type="button" (click)="stage5complete()" (click)="blockstatus5()" (click)="submit(fifthFormGroup.value)" (click)="addToRegistryHoroscope()" [disabled]="!fifthFormGroup.valid" (tap)="startAnimation('zoomOutRight')">Save and Proceed</button>
+                          <button mat-raised-button color="primary" type="button" (click)="stage5complete()" (click)="blockstatus5()" (click)="addToRegistryHoroscope()" (tap)="startAnimation('zoomOutRight')">Skip</button>
+                          <!-- <button mat-button (click)="openside()" style="z-index: 5;background-color: green;top:0">Proceed</button> -->
+                      </div>
+
+                  </div>
+                      </div>
+                    </form>
+                    </mat-card>
+                  </div>
+
+
+                  <div *ngIf="status5" class="container bg-text" style="top:70%">
+
+
+                    <div style="color: white">
+                        <h4>Finish by uploading video and profile picture</h4>
+
+                        <div style="min-height: 200px">
+                          <h2>Profile Picture</h2>
+                          <input id="fileInput" type='file' (change)="onSelectFile($event)">
+                          <button mat-raised-button><label for="fileInput">Upload</label></button>
+                        </div>
+
+
+                        <div style="min-height: 200px">
+                          <h2>Profile Video</h2>
+                          <div>
+                              <input id="fileInputVideo" type='file' (change)="onSelectFileVideo($event)">
+                              <button mat-raised-button><label for="fileInputVideo">Upload</label></button>
+                               or
+                              <button (click)="openVideo()" mat-raised-button>Record</button>
+                          </div>
+                        </div>
+
+
+
+
+                    <div>
+                        <div>
+
+                            <button mat-raised-button color="primary" type="button" routerLink="/dashboard" (click)="SentToProfile()">Save and Go to Dashboard</button>
+                            <!-- <button mat-button (click)="openside()" style="z-index: 5;background-color: green;top:0">Proceed</button> -->
+                        </div>
+
+                    </div>
+                        </div>
+
+                    </div>
+
+                  </div>
+
+      </mat-drawer-content>
+    </mat-drawer-container>

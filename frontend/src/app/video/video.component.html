@@ -1,0 +1,15 @@
+<section class="container">
+  <video #videoElement controls autoplay playsinline></video>
+  <div class="row">
+    <button mat-mini-fab isIconButton="true" color="primary" (click)="start()">
+<!--       <mat-icon
+        svgIcon="thumbs-up"
+        aria-hidden="false"
+        aria-label="Record SVG icon"
+      ></mat-icon> -->
+      Start
+    </button>
+    <button mat-mini-fab isIconButton="true" color="warn" (click)="stop()">Stop</button>
+    <button mat-button [mat-dialog-close]="vidUrl">Close</button>
+  </div>
+</section>

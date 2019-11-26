@@ -1,0 +1,47 @@
+.subscription{
+    align-items: center;
+    display: flex;
+    flex-direction: row;
+    padding: 16px;
+    color: white;
+  }
+
+  .subsheading{
+    padding: 10px;
+    text-align: center;
+    color: #f03a3a;
+  }
+  
+  .option{
+    text-align: center;
+  }
+  
+  mat-radio-button{
+    padding: 10px;
+  }
+  
+  .littleop{
+    color: #f03a3a;
+    opacity: 0.7;
+  }
+  
+  .plans{
+    padding: 10px;
+    display: flex;
+    flex-direction: row;
+  }
+  
+  
+  .sub-button{
+    margin: 10px;
+    background-color: #D4AF37;
+    color: #262626;
+  }
+
+  .about2{
+    /* background-color: black;  */
+    /* opacity: 0.9; */
+    /* z-index: -1;
+    background-color: #222222;
+  /* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+  }

@@ -1,0 +1,201 @@
+    
+    
+    <!-----------------SEARCH CARDS------------------------>
+    
+    
+    <div fxLayout fxLayoutGap="10px" fxLayout.xs="column" class="search-panel" style="padding:5%">
+
+        <!------------------INDIVIDUAL CARDS-------------->
+
+        <!-- <div [@simpleFadeAnimation] *ngIf="connectoverlay" fxFlex=32.5% fxLayout fxLayout.xs="column" class="search-cards1">
+                <span>CONNECTED</span>
+                <span>Kunal Singhal</span>
+                <button (click)="showCard()" mat-icon-button style="float: right;" aria-label="Example icon-button with a heart icon">
+                    <mat-icon>clear</mat-icon>
+                </button>     
+        </div> -->
+
+        <div *ngFor="let i of [0,1,2,3,4,5,6,7,8]" fxFlex=32.5% fxLayout fxLayout.xs="column" class="search-cards">
+                <!-- <span *ngIf="connectoverlay">CONNECTED</span> -->
+
+           
+            <div [@simpleFadeAnimation] *ngIf="connectoverlay[i]" class="overlay1">
+                <button (click)="showCard(i)" mat-icon-button style="float: right;">
+                    <mat-icon>clear</mat-icon>
+                </button> 
+                CONNECTION REQUEST SENT
+            </div>
+
+            <div [@simpleFadeAnimation] *ngIf="likeoverlay[i]" class="overlay2">
+                <button (click)="showCard1(i)" mat-icon-button style="float: right;">
+                    <mat-icon>clear</mat-icon>
+                </button> 
+                LIKED
+            </div>
+
+            <mat-card *ngIf="!closecard[i]" class="example-card">
+                          
+                <span *ngIf="likeoverlay[i]" class="overlay">LIKED</span>
+                <span *ngIf="connectoverlay[i]" class="overlay">CONNECTION SENT</span>
+            <mat-card-content>
+                <div class="video">
+                    <mat-video [muted]="mute[i]" [fullscreen]="true" [overlay]="false" src="https://cdn.videvo.net/videvo_files/converted/2017_12/preview/171124_B2_UHD_001.mp471291.webm"></mat-video>
+                </div>
+
+                <div style="position:absolute;left:0;right:0;margin-top:-56%; background: rgba(0, 0, 0, 0.5);
+                color: #f1f1f1;">
+                    <button *ngIf="!connected[i]" (click)=connect(i) mat-icon-button style="float: left;" aria-label="Example icon-button with a heart icon" class="card-button1" >
+                        <mat-icon>person_add</mat-icon>
+                    </button>
+                    <button *ngIf="connected[i]" mat-icon-button style="color: green;float: left;" aria-label="Example icon-button with a heart icon"  >
+                        <mat-icon>how_to_reg</mat-icon>
+                    </button>
+                    <a id="name" routerLink='/show-profile'><span class="card-name">Madhur Poddar, 20</span></a>
+                    <button *ngIf="liked[i]" mat-icon-button color="warn" style="float: right;" aria-label="Example icon-button with a heart icon" >
+                    <mat-icon>favorite</mat-icon>
+                    </button>
+                    <button *ngIf="!liked[i]" (click)=like(i) mat-icon-button style="color: pink" style="float: right;" aria-label="Example icon-button with a heart icon" class="card-button">
+                        <mat-icon>favorite</mat-icon>
+                    </button>
+                </div>
+
+                <div style="position:absolute;left:0;right:0;margin-top:-10%;
+                color: #f1f1f1;">
+                    <!-- <button mat-icon-button style="float: left; color: white" aria-label="Example icon-button with a heart icon" class="card-button1">
+                        <mat-icon>play_arrow</mat-icon>
+                    </button>  
+                    <button mat-icon-button style="float: left; color: white" aria-label="Example icon-button with a heart icon" class="card-button1" >
+                        <mat-icon>pause</mat-icon>
+                    </button> -->
+                    <button *ngIf="mute[i]" (click)=togglemute(i) mat-icon-button style="float: left; color: white" aria-label="Example icon-button with a heart icon" class="card-button2" >
+                        <mat-icon>volume_off</mat-icon>
+                    </button>
+                    <button *ngIf="!mute[i]" (click)=togglemute(i) mat-icon-button style="float: left; color: white" aria-label="Example icon-button with a heart icon" class="card-button2" >
+                        <mat-icon>volume_up</mat-icon>
+                    </button>
+                </div>
+
+            </mat-card-content>
+       
+
+                <!-- <mat-card-actions style="margin-bottom: 0;" class="card-actions">
+                    <span class="card-name">Kunal Singhal 1, 20</span>
+                    <button *ngIf="liked" mat-icon-button color="warn" style="float: right;" aria-label="Example icon-button with a heart icon" class="card-button">
+                        <mat-icon>favorite</mat-icon>
+                    </button>
+                    <button *ngIf="!liked" (click)=like() mat-icon-button style="color: pink" style="float: right;" aria-label="Example icon-button with a heart icon" class="card-button">
+                        <mat-icon>favorite</mat-icon>
+                    </button>
+                    <button *ngIf="!connected" (click)=connect() mat-icon-button style="color: green; float: right;" aria-label="Example icon-button with a heart icon" class="card-button">
+                        <mat-icon>person_add</mat-icon>
+                    </button>
+                    <button *ngIf="connected" mat-icon-button style="color: green; float: right;" aria-label="Example icon-button with a heart icon" class="card-button">
+                        <mat-icon>how_to_reg</mat-icon>
+                    </button>
+                </mat-card-actions> -->
+    
+           
+
+            
+      
+
+    </mat-card>
+           
+        </div>
+
+        
+        <!-- <div [@simpleFadeAnimation] *ngIf="connectoverlay" fxFlex=32.5% fxLayout fxLayout.xs="column" class="search-cards1">
+            <mat-card>
+                <span>CONNECTED</span>
+                <span>Kunal Singhal</span>
+                <button (click)="showCard()" mat-icon-button style="float: right;" aria-label="Example icon-button with a heart icon">
+                    <mat-icon>clear</mat-icon>
+                </button>     
+            </mat-card>
+        </div> -->
+        
+
+        
+    </div>
+       
+        
+    <div *ngIf="searchObj" style="font-size: 100px;">
+        <div *ngFor="let o of searchObj">
+            {{o.id}}
+        </div>
+    </div>
+ 
+
+   <!-- <div fxFlex=50% fxLayoutWrap style="background: yellow">
+
+        <div fxLayout fxLayout.xs="column">
+
+            <div class="video">
+                <mat-video [src]="vidUrl ? vidUrl : 'https://cdn.videvo.net/videvo_files/converted/2017_12/preview/171124_B2_UHD_001.mp471291.webm'"></mat-video>
+            </div>
+
+            <div>
+                Name
+            </div>
+
+        </div>
+              
+   </div>
+
+   <div fxFlex=50% fxLayoutWrap style="background: yellow">
+
+        <div fxLayout fxLayout.xs="column">
+
+            <div class="video">
+                <mat-video [src]="vidUrl ? vidUrl : 'https://cdn.videvo.net/videvo_files/converted/2017_12/preview/171124_B2_UHD_001.mp471291.webm'"></mat-video>
+            </div>
+
+            <div>
+                Name
+            </div>
+
+        </div>
+              
+   </div>
+
+   <div fxFlex=50% fxLayoutWrap style="background: yellow">
+
+        <div fxLayout fxLayout.xs="column">
+
+            <div class="video">
+                <mat-video [src]="vidUrl ? vidUrl : 'https://cdn.videvo.net/videvo_files/converted/2017_12/preview/171124_B2_UHD_001.mp471291.webm'"></mat-video>
+            </div>
+
+            <div>
+                Name
+            </div>
+
+        </div>
+               -->
+ 
+
+
+
+
+   <!-- <div fxFlex=50% style="background: red">
+       B
+   </div> -->
+
+<!-- </div> -->
+
+<!-- <div fxLayout fxLayout.xs="column">
+
+   <div fxFlex=50% style="background: red">
+        C
+   </div>
+    
+    <div fxFlex=50% style="background: yellow">
+        D
+    </div>
+
+
+
+
+
+
+</div> -->

@@ -1,0 +1,339 @@
+
+
+
+<!-- <p><mat-icon>report</mat-icon> Under construction</p> -->
+
+
+
+
+<div *ngIf="chatStatus">
+<form [formGroup]="userForm" (submit)="openSocket()" *ngIf="isLoaded">
+  <p>User Information:  </p>
+  <div style="margin-bottom: 20px;">
+    <input type="text" formControlName="fromId" name="fromId" placeholder="Your id">
+    <input value="email" [disabled]="userForm.invalid || isCustomSocketOpened" value="Lets Chat!">
+  </div>
+  </form>
+</div>
+
+
+<!--ROSHAN-->
+
+
+
+
+
+
+
+
+
+
+<!--END-->
+
+
+
+
+
+
+
+<div class="full_messenger" *ngIf="!chatStatus">
+
+
+    <div fxLayout fxLayout.xs="row" style="min-height: 100px">
+
+        <div fxFlex=20% style="background: white">
+      
+            
+                
+            <mat-selection-list class="friendblock" 
+            style="background: rgb(43, 1, 63); 
+            color:white;" 
+            [style.overflow]="'auto'" [style.height.px]="'600'" dense class="conversation-history mat-typography">
+                    
+                    <!-- <ng-template>
+                      <mat-icon matListIcon>forum</mat-icon>Chats
+                    </ng-template> -->
+                    <div class="friendhead">
+                      <h2>Connections</h2>
+                    </div>
+                    <mat-divider></mat-divider>
+                    
+                    <div class="conversations">
+                      <div  class="friendlist" *ngFor="let chat of chats; let i = index" >
+                        <div class="friend" (click)="openChat(chat.id,chatnames[i])">
+                          <mat-icon>forum</mat-icon>
+                          <!-- <p style="float: right">{{chat.id}}</p> -->
+                          <p style="float: right">{{chatnames[i]}}</p>
+                        </div>
+                      </div>
+                    </div>
+            </mat-selection-list>
+                
+              
+
+        </div>
+
+
+        <div fxFlex=80%>
+          <section class="empty-conversation" *ngIf="!selectedConversation">
+            <h1 class="mat-display-1">Select a conversation from the left to start chatting</h1>
+          </section>
+          <section class="chatbody" *ngIf="selectedConversation">
+              <div class="mat-typography conversation-header">
+                <h2>
+                  <mat-icon>account_circle</mat-icon>
+                  <!-- {{userForm.value.toId}} -->
+                   {{insidechat}}
+                </h2>
+                  
+                  <!-- <mat-icon>sentiment_satisfied_alt</mat-icon>
+                  online -->
+                    
+              </div>
+              <mat-divider></mat-divider>
+              <!-- <div class="conversation-history mat-typography">
+                  <div *ngFor="let msg of retrievedMsgs" [dir]="msg.sender ===senderDetail ? 'rtl' : 'ltr'">
+                      <p>{{msg.message}}</p>
+                  </div>
+                  <div *ngFor="let message of messages" [dir]="message.fromId ===senderDetail ? 'rtl' : 'ltr'">
+                    <p>{{message.message}}</p>
+                  </div>
+    
+                </div> -->
+                <mat-selection-list [style.overflow]="'auto'" [style.height.px]="'450'" dense class="conversation-history mat-typography">
+                    <mat-list-item *ngFor="let msg of retrievedMsgs" [dir]="msg.sender ===senderDetail ? 'rtl' : 'ltr'" >
+                    <div [ngStyle]="{'background-color':msg.sender ===senderDetail ? 'rgb(89, 247, 89);' : 'rgb(0, 131, 0)' }" style="padding-left: 10px; padding-right:10px; width: 30%; border-radius: 10px">  
+                      <p style="padding-top: 5px" [ngStyle]="{'color':msg.sender ===senderDetail ? 'black' : 'white' }">{{msg.message}}</p>
+                    </div>
+                    </mat-list-item>
+                    
+                    <mat-list-item *ngFor="let message of messages" [dir]="message.fromId ===senderDetail ? 'rtl' : 'ltr'">
+                    <div [ngStyle]="{'background-color':message.fromId ===senderDetail ? 'rgb(89, 247, 89);' : 'rgb(0, 131, 0)' }" style="padding-left: 10px; padding-right:10px; width: 30%; border-radius: 10px"> 
+                      <p style="padding-top: 5px" [ngStyle]="{'color':message.fromId ===senderDetail ? 'black' : 'white' }">{{message.message}}</p>
+                    </div>
+                    </mat-list-item>
+                    
+      
+                </mat-selection-list>
+
+              <div class="conversation-input">
+                  <mat-divider></mat-divider>
+                  <form [formGroup]="form" (submit)="sendMessageUsingSocket()">
+                    <mat-form-field class="full-width">
+                      <input matInput placeholder="Start chatting..." formControlName="message" name="message">
+                      <button color="primary"  mat-raised-button style="float: right;margin-right: 10px;" type="submit"><mat-icon>send</mat-icon></button>
+                    </mat-form-field>
+                </form>
+              </div>
+
+              </section>
+        </div>
+      
+        <!-- <div class="chat_messenger" style="background: skyblue" >
+      
+            <section class="empty-conversation" *ngIf="!selectedConversation">
+                <h1 class="mat-display-1">Select a conversation from the left to start chatting</h1>
+              </section>
+              <section *ngIf="selectedConversation">
+                  <div class="mat-typography conversation-header">
+                    <h2>
+                      <mat-icon>account_circle</mat-icon>
+                      {{userForm.value.toId}}</h2>
+                     <p>
+                      <mat-icon>sentiment_satisfied_alt</mat-icon>
+                      online
+                    </p>
+                  </div>
+                  <mat-divider></mat-divider>
+                  <mat-list dense class="conversation-history mat-typography">
+                      <mat-list-item *ngFor="let msg of retrievedMsgs" [dir]="msg.sender ===senderDetail ? 'rtl' : 'ltr'">
+                          <p>{{msg.message}}</p>
+                      </mat-list-item>
+                      <mat-list-item *ngFor="let message of messages" [dir]="message.fromId ===senderDetail ? 'rtl' : 'ltr'">
+                        <p>{{message.message}}</p>
+                      </mat-list-item>
+        
+                  </mat-list>
+                  <div class="conversation-input">
+                    <mat-divider></mat-divider>
+                    <form [formGroup]="form" (submit)="sendMessageUsingSocket()">
+                      <mat-form-field class="full-width">
+                        <input matInput placeholder="Start chatting..." formControlName="message" name="message">
+                        <button type="submit"><mat-icon [inline]="true" matSuffix>send</mat-icon></button>
+                      </mat-form-field>
+                  </form>
+                  </div>
+                </section>
+
+
+        </div> -->
+      
+      </div>  
+     
+
+
+</div>
+
+
+<!-- <mat-sidenav-container class="container">
+  <mat-sidenav mode="side" opened>
+    <mat-card>
+      <mat-tab-group>
+        <mat-tab>
+          <ng-template mat-tab-label>
+            <mat-icon matListIcon>forum</mat-icon>Chats
+          </ng-template>
+          <mat-list class="conversations">
+            <div>
+                <input matInput placeholder="Enter Id of person" #toId>
+                <mat-icon [inline]="true" matSuffix (click)="openChat(toId.value)">send</mat-icon>
+            </div>
+            <mat-list-item *ngFor="let chat of chats" >
+              <div (click)="openChat(chat.id)">
+                <mat-icon matListIcon>forum</mat-icon>
+                <p>{{chat.id}}</p>
+              </div>
+            </mat-list-item>
+          </mat-list>
+        </mat-tab>
+      </mat-tab-group>
+    </mat-card>
+  </mat-sidenav>
+    <section class="empty-conversation" *ngIf="!selectedConversation">
+        <h1 class="mat-display-1">Select a conversation from the left to start chatting</h1>
+      </section>
+      <section *ngIf="selectedConversation">
+          <div class="mat-typography conversation-header">
+            <h2>
+              <mat-icon>account_circle</mat-icon>
+              {{userForm.value.toId}}</h2>
+             <p>
+              <mat-icon>sentiment_satisfied_alt</mat-icon>
+              online
+            </p>
+          </div>
+          <mat-divider></mat-divider>
+          <mat-list dense class="conversation-history mat-typography">
+              <mat-list-item *ngFor="let msg of retrievedMsgs" [dir]="msg.sender ===senderDetail ? 'rtl' : 'ltr'">
+                  <p>{{msg.message}}</p>
+              </mat-list-item>
+              <mat-list-item *ngFor="let message of messages" [dir]="message.fromId ===senderDetail ? 'rtl' : 'ltr'">
+                <p>{{message.message}}</p>
+              </mat-list-item>
+
+          </mat-list>
+          <div class="conversation-input">
+            <mat-divider></mat-divider>
+            <form [formGroup]="form" (submit)="sendMessageUsingSocket()">
+              <mat-form-field class="full-width">
+                <input matInput placeholder="Start chatting..." formControlName="message" name="message">
+                <button type="submit"><mat-icon [inline]="true" matSuffix>send</mat-icon></button>
+              </mat-form-field>
+          </form>
+          </div>
+        </section>
+</mat-sidenav-container> -->
+
+<!-----main thing ends   -->
+
+<!-- <mat-list dense class="conversation-history mat-typography">
+            <mat-list-item *ngFor="let event of events; index as i" [dir]="event.from === selectedConversation.me.id ? 'rtl' : 'ltr'">
+              <img *ngIf="event.type == 'text'" matListAvatar matTooltip="{{selectedConversation.members[event.from].user.name}}" src="https://randomuser.me/api/portraits/thumb/lego/{{i}}.jpg"
+              />
+              <p *ngIf="event.type == 'text'" [dir]="'ltr'">{{event.body.text}}</p>
+            </mat-list-item>
+            [dir]="msg.sender=== formGroup.value.fromId ? 'rtl' : 'ltr'"
+          </mat-list> -->
+
+<!-----------main thing commented reference part also ends-->
+
+
+
+
+
+
+
+ <!-- <mat-sidenav-container class="container">
+      <mat-sidenav mode="side" opened>
+        <mat-card>
+          <mat-tab-group>
+            <mat-tab>
+              <ng-template mat-tab-label>
+                <mat-icon matListIcon>forum</mat-icon>
+              </ng-template>
+              <mat-list class="conversations">
+                <mat-list-item *ngFor="let conversation of conversations" (click)="selectConversation(conversation.id)">
+                  <mat-icon matListIcon>forum</mat-icon>
+                  <p>{{conversation.display_name}}</p>
+                </mat-list-item>
+              </mat-list>
+            </mat-tab>
+          </mat-tab-group>
+        </mat-card>
+      </mat-sidenav>
+      <mat-sidenav position="end" mode="side" opened *ngIf="selectedConversation">
+        <mat-card>
+          <mat-list class="members">
+            <mat-list-item *ngFor="let member of selectedConversation.members | keys">
+              <p>{{member.value.user.name}}</p>
+            </mat-list-item>
+          </mat-list>
+        </mat-card>
+      </mat-sidenav>
+      <section class="empty-conversation" *ngIf="!selectedConversation">
+        <h1 class="mat-display-1">Select a conversation from the left to start chatting</h1>
+      </section>
+      <section *ngIf="selectedConversation">
+        <div class="mat-typography conversation-header">
+          <h2>
+            <mat-icon>forum</mat-icon>
+            {{selectedConversation.display_name}}</h2>
+          <p>
+            <mat-icon>account_circle</mat-icon>
+            {{(selectedConversation.members | keys).length}} Members</p>
+        </div>
+
+        <mat-divider></mat-divider>
+        <mat-list dense class="conversation-history mat-typography">
+          <mat-list-item *ngFor="let event of events; index as i" [dir]="event.from === selectedConversation.me.id ? 'rtl' : 'ltr'">
+            <img *ngIf="event.type == 'text'" matListAvatar matTooltip="{{selectedConversation.members[event.from].user.name}}" src="https://randomuser.me/api/portraits/thumb/lego/{{i}}.jpg"
+            />
+            <p *ngIf="event.type == 'text'" [dir]="'ltr'">{{event.body.text}}</p>
+            <p *ngIf="event.type == 'member:joined'" class="text-center">
+              <b>{{selectedConversation.members[event.from].user.name}}</b> has joined the conversation</p>
+          </mat-list-item>
+        </mat-list>
+
+        <div class="conversation-input">
+          <mat-divider></mat-divider>
+          <mat-form-field class="full-width">
+            <input matInput placeholder="Start chatting..." name="text" [(ngModel)]="text">
+            <mat-icon matSuffix (click)="sendText(text)">send</mat-icon>
+          </mat-form-field>
+        </div>
+      </section>
+    </mat-sidenav-container> -->
+
+
+
+
+<!-- ---------------
+  Initial Form
+  -------------------
+  <form [formGroup]="userForm" (submit)="openSocket()" *ngIf="isLoaded">
+    <p>User Information: (if user id(toId) is null the message will be sended to all users) </p>
+    <div style="margin-bottom: 20px;">
+      <input type="text" formControlName="fromId" name="fromId" placeholder="Your id">
+      <input type="submit" [disabled]="userForm.invalid || isCustomSocketOpened" value="open socket to recieve custom messages">
+    </div>
+    <input type="text" formControlName="toId" name="toId" placeholder="User id to send the message to">
+  </form>
+  <form [formGroup]="form" (submit)="sendMessageUsingSocket()">
+    <p>Message: </p>
+    <input type="text" formControlName="message" name="message" placeholder="Message">
+    <input type="submit" [disabled]="form.invalid || userForm.invalid" value="Send using socket subscription">
+    <input type="button" [disabled]="form.invalid || userForm.invalid" value="Send using a rest controller" (click)="sendMessageUsingRest()">
+  </form>
+  <ul>
+    <li *ngFor="let message of messages">From: {{message.fromId}}, To: {{message.toId}}, Message: {{message.message}}</li>
+  </ul> -->

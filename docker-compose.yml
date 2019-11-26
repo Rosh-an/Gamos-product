@@ -1,0 +1,310 @@
+version: '3.3'
+
+services:
+  config-server:
+    build: config-server/
+    container_name: config-server
+    restart: always
+  rabbitMQ:
+    image: rabbitmq:management-alpine
+    container_name: rabbitMQ
+    restart: always
+    ports:
+      - 15672:15672
+  mongo:
+    image: mongo
+    container_name: mongo
+    restart: always
+    volumes:
+      - $HOME/data:/data/db
+      - $HOME/data:/data/bkp
+  neo4jdb:
+    image: neo4j
+    container_name: neo4j-springboot
+    volumes:
+      - $HOME/neo4j:/data
+    ports:
+      - 8050:7474
+      - 8051:7687
+    environment:
+      - NEO4j_AUTH=none
+
+  eureka-server:
+    build: eureka-server/
+    container_name: eureka-server
+    restart: always
+    ports:
+      - 8085:8085
+
+  api-gateway:
+    build: api-gateway/
+    container_name: api-gateway
+    depends_on:
+      - eureka-server
+      - auth-service
+      - upstream-service
+      - profile-service
+    restart: always
+    links:
+      - eureka-server
+      - auth-service
+      - upstream-service
+      - profile-service
+    ports:
+      - 8443:8443
+
+  mongo-express:
+    image: mongo-express
+    container_name: mongo-express
+    restart: always
+    environment:
+      - ME_CONFIG_OPTIONS_EDITORTHEME=ambiance
+      - ME_CONFIG_MONGODB_SERVER=mongo
+      - ME_CONFIG_MONGODB_PORT=27017
+      - ME_CONFIG_BASICAUTH_USERNAME=root
+      - ME_CONFIG_BASICAUTH_PASSWORD=root
+    depends_on:
+      - mongo
+    ports:
+      - 8081:8081
+  portainer:
+    image: portainer/portainer
+    container_name: portainer
+    restart: always
+    ports:
+      - 8000:8000
+      - 9000:9000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - portainer_data:/data
+  gamos-frontend:
+    build: frontend/
+    restart: always
+    container_name: gamos-frontend
+    depends_on:
+      - api-gateway
+      - profile-service
+    ports:
+      - 4200:4200
+
+  mysql-docker:
+    image: mysql
+    container_name: mysql-docker
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+    volumes:
+      - mysql:/var/lib/mysql
+
+  auth-service:
+    build: authentication-service/
+    restart: always
+    container_name: auth-service
+    depends_on:
+      - mysql-docker
+    links:
+      - mysql-docker
+
+  upstream-service:
+    build: upstream-service/
+    restart: always
+    container_name: upstream-service
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=usr/src/VideoBot.json
+    depends_on:
+      - eureka-server
+      - config-server
+      - personal-service
+      - professional-service
+      - horoscope-service
+      - rabbitMQ
+      - neo4jdb
+    links:
+      - eureka-server
+      - config-server
+      - rabbitMQ
+    ports:
+      - 8020:8020
+
+  profile-service:
+    build: profile-service/
+    restart: always
+    container_name: profile-service
+    depends_on:
+      - mongo
+      - config-server
+      - rabbitMQ
+    links:
+      - mongo
+      - config-server
+      - rabbitMQ
+    ports:
+      - 8025:8025
+
+  chat-service:
+    build: chat-service/
+    restart: always
+    container_name: chat-service
+    depends_on:
+      - eureka-server
+      - mongo
+      - config-server
+    links:
+      - mongo
+      - eureka-server
+      - config-server
+    ports:
+      - 8065:8065
+
+  personal-service:
+    build: personal-service/
+    restart: always
+    container_name: personal-service
+    depends_on:
+      - rabbitMQ
+      - eureka-server
+      - config-server
+    links:
+      - eureka-server
+      - config-server
+      - rabbitMQ
+
+  horoscope-service:
+    build: horoscope-service/
+    restart: always
+    container_name: horoscope-service
+    depends_on:
+      - rabbitMQ
+      - eureka-server
+      - config-server
+    links:
+      - rabbitMQ
+      - eureka-server
+      - config-server
+
+  professional-service:
+    build: professional-service/
+    restart: always
+    container_name: professional-service
+    depends_on:
+      - rabbitMQ
+      - eureka-server
+      - config-server
+    links:
+      - rabbitMQ
+      - eureka-server
+      - config-server
+
+  graph-com-service:
+    build: graph-com-service/
+    restart: always
+    container_name: graph-com-service
+    depends_on:
+      - neo4jdb
+      - rabbitMQ
+      - eureka-server
+      - config-server
+    links:
+      - rabbitMQ
+      - eureka-server
+      - config-server
+    ports:
+      - 8030:8030
+
+  chronograf:
+     image: chronograf:alpine
+     container_name: chronograf
+     depends_on:
+     - influxdb
+     links:
+     - influxdb
+     ports:
+     - 8888:8888
+     environment:
+       INFLUXDB_URL: http://influxdb:8086
+     volumes:
+     - $HOME/chronograf:/var/lib/chronograf
+  influxdb:
+     image: influxdb:alpine
+     ports:
+     - 8086:8086
+     - 8083:8083
+     restart: always
+     container_name: influxdb
+     volumes:
+     - $HOME/influxdb:/var/lib/influxdb
+  telegraf:
+     image: telegraf:alpine
+     restart: always
+     container_name: telegraf
+     depends_on:
+     - influxdb
+     links:
+     - influxdb
+     volumes:
+     - ./telegraf.conf:/etc/telegraf/telegraf.conf:ro
+
+  recommendation-service:
+    build: recommendation-service/
+    restart: always
+    container_name: recommendation-service
+    depends_on:
+      - neo4jdb
+      - rabbitMQ
+      - config-server
+    links:
+      - rabbitMQ
+      - config-server
+    ports:
+      - 8040:8040
+
+  prometheus:
+    image: prom/prometheus
+    ports:
+      - 9090:9090
+    restart: always
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+#      - prometheus_data:/prometheus
+#    command:
+      - "--config.file=/etc/prometheus/prometheus.yml"
+#    depends_on:
+#      - eureka-server
+#      - rabbitMQ
+#      - config-server
+#    links:
+#      - rabbitMQ
+#      - config-server
+#      - eureka-server
+#      - influxdb
+#      - recommendation-service
+#      - telegraf
+#      - graph-com-service
+#      - professional-service
+#      - horoscope-service
+#      - personal-service
+#      - chat-service
+#      - profile-service
+#      - upstream-service
+#      - auth-service
+#      - mysql-docker
+#      - gamos-frontend
+#      - mongo-express
+#      - api-gateway
+#      - neo4jdb
+#      - mongo
+
+  grafana:
+      image: grafana/grafana:latest
+      ports:
+        - "3000:3000"
+      depends_on:
+        - prometheus
+#      links:
+#        - influxdb
+
+volumes:
+  portainer_data:
+  mysql:
+  prometheus_data: {}
+  grafana_data: {}

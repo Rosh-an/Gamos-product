@@ -1,0 +1,409 @@
+<link
+  href="https://fonts.googleapis.com/css?family=Gloria+Hallelujah&display=swap"
+  rel="stylesheet"
+/>
+
+<div class="whole-page">
+  <div class="bg" id="overlay">
+    <mat-toolbar color="primary" class="topnavbar1">
+      <div class="topnav">
+        <button routerLink="/dashboard" mat-button (click)="back()" style="float: left">
+          <mat-icon>home</mat-icon>
+        </button>
+        <button
+          style="float: right"
+          mat-icon-button
+          [matMenuTriggerFor]="menu"
+          aria-label="Example icon-button with a menu"
+        >
+          <mat-icon>dashboard</mat-icon>
+        </button>
+        <mat-menu #menu="matMenu">
+          <button mat-menu-item routerLink="/user-profile">
+            <mat-icon>account_circle</mat-icon> My Profile
+          </button>
+          <button mat-menu-item>
+            <mat-icon
+              matBadge="8"
+              matBadgePosition="after"
+              matBadgeColor="accent"
+              >notification_important</mat-icon
+            >
+            Notifications
+          </button>
+          <button mat-menu-item [matMenuTriggerFor]="settings">
+            <mat-icon>settings_application</mat-icon> Settings
+          </button>
+          <button mat-menu-item><mat-icon>help</mat-icon> Help</button>
+          <button (click)="logout()" mat-menu-item routerLink="/home">
+            <mat-icon>power_settings_new</mat-icon> Log Out
+          </button>
+        </mat-menu>
+        <mat-menu #settings="matMenu">
+          <button mat-menu-item routerLink="/settings">Subscriptions</button>
+          <button mat-menu-item routerLink="/settings">Security</button>
+        </mat-menu>
+      </div>
+    </mat-toolbar>
+
+    <div class="stats">
+      <div class="stats-overlay"></div>
+
+      <div mat-raised class="logo"><h1>Gamos</h1></div>
+    </div>
+  </div>
+
+  <div class="full_profile">
+    <mat-toolbar
+      class="nav-profile"
+      color="accent"
+      style="margin:auto; width: auto;"
+    >
+      <div *ngIf="showProfileObj.imageUrl">
+        <img [src]="showProfileObj.imageUrl[0]" alt="Avatar" class="avatar" />
+      </div>
+      <div style="padding-left: 2%">
+        {{ basicPersonalDetails.firstName }} {{ basicPersonalDetails.lastName }}
+      </div>
+      <div *ngIf="!hasRequested && !hasAccepted" style="width:100%;text-align: right">
+        <button mat-raised-button (click)="Connect(basicPersonalDetails.email)">Connect</button>
+      </div>
+      <div *ngIf="hasRequested && !hasAccepted" style="width:100%;text-align: right">
+        <button mat-raised-button>Requested</button>
+      </div>
+      <div *ngIf="!hasRequested && hasAccepted" style="width:100%;text-align: right">
+          <button mat-raised-button>Connected</button>
+        </div>
+    </mat-toolbar>
+
+    <div fxLayout>
+      <div fxFlex="40%">
+        <!-- <div>
+            <mat-video [src]="'https://cdn.videvo.net/videvo_files/converted/2017_12/preview/171124_B2_UHD_001.mp471291.webm'"></mat-video>
+        </div> -->
+        <mat-carousel
+          timings="250ms ease-in"
+          [autoplay]="true"
+          interval="3000"
+          color="accent"
+          maxWidth="500px"
+          proportion="100"
+          slides="5"
+          [loop]="true"
+          [hideArrows]="true"
+          [hideIndicators]="true"
+          [useKeyboard]="true"
+          [useMouseWheel]="false"
+          orientation="ltr"
+          style="margin: auto;"
+        >
+          <div *ngIf="showProfileObj.imageUrl">
+            <mat-carousel-slide *ngFor="let image of showProfileObj.imageUrl">
+              <img style="height:100%; width:100%" [src]="image" />
+            </mat-carousel-slide>
+          </div>
+          <div *ngIf="!showProfileObj.imageUrl">
+            <mat-carousel-slide>
+              <img
+                style="height:100%; width:100%"
+                src="https://avatarsed1.serversdev.getgo.com/2205256774854474505_medium.jpg"
+              />
+            </mat-carousel-slide>
+          </div>
+          <mat-carousel-slide>
+            <mat-video
+              [src]="
+                showProfileObj.videoUrl
+                  ? showProfileObj.videoUrl
+                  : 'https://cdn.videvo.net/videvo_files/converted/2017_12/preview/171124_B2_UHD_001.mp471291.webm'
+              "
+            ></mat-video>
+          </mat-carousel-slide>
+        </mat-carousel>
+      </div>
+
+      <div fxFlex="65%" style="background:white;  padding: 2%;">
+        <div class="detail">
+          <div fxLayout class="stat">
+            <div fxFlex="49%" class="substat">
+              <span class="number">{{connected}}</span><br />
+              <span class="numbertag">Connections</span>
+            </div>
+
+            <div fxFlex="2%">
+              <hr class="style" />
+            </div>
+
+            <div fxFlex="49%" class="substat">
+              <span class="number">{{likedby}}</span><br />
+              <span class="numbertag">Liked By</span>
+            </div>
+          </div>
+
+          <!-- <h4>Personal details</h4> -->
+          <p>
+            <mat-icon>business_center</mat-icon>
+            {{ professionalDetails.profession }} at
+            {{ professionalDetails.currentCompany }}
+          </p>
+          <p>
+            <mat-icon>home</mat-icon> From {{ basicPersonalDetails.nativeCity }}
+          </p>
+          <p>
+            <mat-icon>room</mat-icon> Currently in
+            {{ basicPersonalDetails.city }}
+          </p>
+          <p>
+            <mat-icon>cake</mat-icon> {{ horoscopeDetails.dateOfBirth }} ({{
+              basicPersonalDetails.age
+            }})
+          </p>
+          <p>
+            <mat-icon>recent_actors</mat-icon> About
+            {{ basicPersonalDetails.firstName }}: <br />
+            <br /> {{ habitsDetails.yourself }}
+          </p>
+
+          <!-- Name<br>
+          Age<br>
+          Mother Tongue<br>
+          Languages<br>
+          Religion<br>
+          About Yourself<br> -->
+        </div>
+      </div>
+    </div>
+</div>
+<hr>
+
+<!-- <mat-accordion class="example-headers-align">
+  <mat-expansion-panel class="panel" [expanded]="step === 0" (opened)="setStep(0)" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Personal data
+      </mat-panel-title>
+      <mat-panel-description>
+        Type your name and age
+        <mat-icon>account_circle</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field>
+      <input matInput placeholder="First name">
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput type="number" min="1" placeholder="Age">
+    </mat-form-field>
+
+    <mat-action-row>
+      <button mat-button color="primary" (click)="nextStep()">Next</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel class="panel" [expanded]="step === 1" (opened)="setStep(1)" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Profession and Education
+      </mat-panel-title>
+      <mat-panel-description>
+        Type the country name
+        <mat-icon>map</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field>
+      <input matInput placeholder="Country">
+    </mat-form-field>
+
+    <mat-action-row>
+      <button mat-button color="warn" (click)="prevStep()">Previous</button>
+      <button mat-button color="primary" (click)="nextStep()">Next</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+
+  <mat-expansion-panel class="panel" [expanded]="step === 2" (opened)="setStep(2)" hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title>
+        Horoscope
+      </mat-panel-title>
+      <mat-panel-description>
+        Inform the date you wish to travel
+        <mat-icon>date_range</mat-icon>
+      </mat-panel-description>
+    </mat-expansion-panel-header>
+
+    <mat-form-field>
+      <input matInput placeholder="Date" [matDatepicker]="picker" (focus)="picker.open()" readonly>
+    </mat-form-field>
+    <mat-datepicker #picker></mat-datepicker>
+
+    <mat-action-row>
+      <button mat-button color="warn" (click)="prevStep()">Previous</button>
+      <button mat-button color="primary" (click)="nextStep()">End</button>
+    </mat-action-row>
+  </mat-expansion-panel>
+
+</mat-accordion> -->
+
+
+
+
+
+
+</div>
+
+<br>
+
+<!--
+<div class="image-cards">
+
+    <div class="image-card">
+        <img src="../../assets/pp1.webp">
+    </div>
+
+    <div class="image-card">
+        <img src="../../assets/pp2.webp">
+    </div>
+
+    <div class="image-card">
+        <img src="../../assets/pp3.webp">
+    </div>
+
+    <div class="image-card">
+        <img src="../../assets/pp1.webp">
+    </div>
+
+    <div class="image-card">
+        <img src="../../assets/pp2.webp">
+    </div>
+
+    <div class="image-card show-more">
+       <a href="#">More..</a>
+    </div>
+
+
+</div> -->
+<!-- </div> -->
+
+
+
+<div style="user-select: none;" unselectable="on" class="container" fxLayoutGap="2px" fxLayout fxLayout.xs="column" >
+    <div *ngIf="!subs" class="text subcenter">
+        <span>Subscribe to view details</span><br>
+        <button mat-raised-button (click)="subscribe()">Subscribe</button><br><br>
+        <mat-spinner color="accent" style="margin: auto" *ngIf="spin"></mat-spinner>
+       
+        </div>
+    <div [class.active]="!subs" class="box">
+      <div class="content">
+        <h2>P</h2>
+        <h3 style="color:#fff">Personal <mat-icon>person</mat-icon></h3>
+        <hr>
+        <div fxLayout fxLayoutGap="2px">
+        <div fxFlex=50%>
+        <p><span class="head">Religion:</span> {{basicPersonalDetails.religion}}</p><br>
+        <p><span class="head">Mother Tongue:</span> {{basicPersonalDetails.tongue}}</p><br>
+        <p><span class="head">Height:</span> {{habitsDetails.height}}</p><br>
+        <p><span class="head">Weight:</span> {{habitsDetails.weight}}</p><br>
+        <p><span class="head">Hobbies:</span> {{habitsDetails.hobbies}}</p><br>
+        <p><span class="head">Interests:</span> {{habitsDetails.interests}}</p><br>
+        <p><span class="head">Marital Status:</span> {{habitsDetails.marital}}</p><br>
+        <p><span class="head">Settle abroad?</span> {{habitsDetails.abroad}}</p>
+          
+       
+           
+        </div>
+        <div fxFlex=50%>
+        <p><span class="head">Food Preferance:</span> {{habitsDetails.diet}}</p><br>
+        <p><span class="head">Smoke?</span> {{habitsDetails.smoke}}</p><br>
+        <p><span class="head">Drink?</span> {{habitsDetails.drink}}</p><br>
+        <p><span class="head">Handicapped?</span> {{habitsDetails.challenged}}</p><br>
+        <p><span class="head">Time of Birth:</span> {{horoscopeDetails.timeOfBirth}}</p>
+        <br>
+        <p><span class="head">Date of Birth:</span> {{horoscopeDetails.dateOfBirth}}</p><br>
+        <p><span class="head">Age:</span> {{basicPersonalDetails.age}}</p>
+        <br>
+        <p><span class="head">Place of Birth:</span> {{horoscopeDetails.placeOfBirth}}</p>  
+        <br>
+        <p><span class="head">Manglik?:</span> {{horoscopeDetails.manglik}}</p> 
+        </div>     
+        </div>
+      </div>
+    </div>
+    <div [class.active]="!subs" class="box">
+        <div class="content">
+          <h2>F</h2>
+          <h3 style="color:#fff">Family <mat-icon>group</mat-icon></h3>
+          <hr>
+          <p><span class="head">No. of members:</span> {{familyDetails.members}}</p>
+          <br>
+          <p><span class="head">Father's Name:</span> {{familyDetails.fatherName}}</p>
+          <p><span class="head">Father's Occupation:</span> {{familyDetails.fatherOccupation}}</p>
+          <br>
+          <p><span class="head">Mother's Name:</span> {{familyDetails.motherName}}</p>
+          <p><span class="head">Mother's Occupation:</span> {{familyDetails.motherOccupation}}</p>
+         
+          <br>
+          <p><span class="head">Younger Brother(s):</span> {{familyDetails.youngb}}</p>
+          <p><span class="head">Elder Brother(s):</span> {{familyDetails.elderb}}</p>
+          
+          <br>
+          <p><span class="head">Younger Sister(s):</span> {{familyDetails.youngs}}</p>
+          <p><span class="head">Elder Sister(s):</span> {{familyDetails.elders}}</p>
+          <br>
+          
+          <p><span class="head">About Family:</span> {{familyDetails.aboutf}}</p>
+        </div>
+      </div>
+      <div [class.active]="!subs" class="box">
+          <div class="content">
+            <h2>C</h2>
+            <h3 style="color:#fff">Career <mat-icon>business_center</mat-icon></h3>
+            <hr>
+            <div fxLayout>
+              <div fxFlex=50%>
+            
+            <h4 style="color: white">Education</h4>
+            <p><span class="head">Highest Education:</span> {{educationalDetails.education}}</p>
+            <br> 
+            <p><span class="head">College Name:</span> {{educationalDetails.college}}</p>
+            <br>
+            <p><span class="head">City:</span> {{educationalDetails.city}}</p>
+            <br>
+            <p><span class="head">Passing Year:</span> {{educationalDetails.passingYear}}</p>
+          </div>
+          <div fxFlex=50%>
+            <h4 style="color: white">Professional</h4>
+            <p><span class="head">Company:</span> {{professionalDetails.currentCompany}}</p>
+            <br>
+            <p><span class="head">Profession:</span> {{professionalDetails.profession}}</p>
+            <br>
+            <p><span class="head">Location:</span> {{professionalDetails.location}}</p>
+            <br>
+            <p><span class="head">Income:</span> {{professionalDetails.income}}</p>
+            <br>
+            <p><span class="head">Work Exp:</span> {{professionalDetails.experience}}</p>
+            <br>
+            <p><span class="head">LinkedIn url:</span> {{professionalDetails.linkedin}}</p>
+          </div>
+          </div>        
+          </div>
+        </div>
+        <!-- <div [class.active]="!subs" class="box">
+            <div class="content">
+              <h2>H</h2>
+              <h3 style="color:#fff">Horoscope <mat-icon>date_range</mat-icon></h3>
+              <hr>
+              <p>Time of Birth: {{horoscopeDetails.timeOfBirth}}</p>
+              <br>
+              <p>Date of Birth: {{horoscopeDetails.dateOfBirth}}</p>
+              <br>
+              <p>Place of Birth: {{horoscopeDetails.placeOfBirth}}</p>    
+              <br>
+              <p>Manglik?: {{horoscopeDetails.manglik}}</p>         
+            </div> -->
+       
+  </div>
+
+  

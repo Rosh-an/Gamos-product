@@ -1,0 +1,652 @@
+
+
+/* :host {
+  position: fixed;
+  top: 0;
+  width: 100%;
+} */
+
+/*************************
+      GAMOS
+************************/
+.square{
+  position: relative;
+  top:50%;
+  width:200px;
+  height: 200px;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  
+}
+
+.square span:nth-child(1)
+{
+  position: absolute;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #fff;
+  box-shadow: 0px 0px 4px red;
+  border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
+  transition: 0.5s;
+  animation: animate11 6s linear infinite;
+}
+
+.square:hover span:nth-child(1)
+{
+  border: none;
+  background: rgba(0,0,255,0.8);
+}
+
+.square span:nth-child(2)
+{
+  position: absolute;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #fff;
+  box-shadow: 0px 0px 4px red;
+  border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
+  transition: 0.5s;
+  animation: animate11 4s linear infinite;
+}
+
+.square:hover span:nth-child(2)
+{
+  border: none;
+  background: rgba(0,0,255,0.8);
+}
+
+#rings{
+  max-width: 100px;
+  align-self: center;
+  justify-self: center;
+  animation: loading-rings 3s ease-in-out infinite;
+}
+
+@keyframes loading-rings{
+  0%,15%,85%,100%{
+    opacity: 1;
+  }
+  50%{
+    opacity: 0;
+  }
+}
+
+
+.square span:nth-child(3)
+{
+  position: absolute;
+  top:0;
+  left:0;
+  width: 100%;
+  height: 100%;
+  border: 2px solid #fff;
+  box-shadow: 0px 0px 4px red;
+  border-radius: 38% 62% 63% 37% / 41% 44% 56% 59%;
+  transition: 0.5s;
+  animation: animate112 10s linear infinite;
+}
+
+.square:hover span:nth-child(3)
+{
+  border: none;
+  background: rgba(0,0,255,0.8);
+}
+
+
+@keyframes animate11
+{
+  0%
+  {
+    transform: rotate(0deg);
+  }
+
+  100%
+  {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes animate112
+{
+  0%
+  {
+    transform: rotate(360deg);
+  }
+
+  100%
+  {
+    transform: rotate(0deg);
+  }
+}
+
+
+
+
+
+.navbar{
+  justify-content: space-between;
+  /* background-color: black; */
+  background-color: transparent;
+  /* position: absolute; */
+  /* background-color:transparent; */
+  /* position: fixed; */
+  /* backdrop-filter: saturate(180%) blur(1px); */
+  /* position:fixed; */
+  overflow: visible;
+  /* opacity: 0.9; */
+  /* z-index:2;
+  width: 100%; */
+  z-index: 1;
+  position: sticky;
+}
+
+
+
+.navbar a{
+  padding-right: 1rem;
+  color: white;
+  text-decoration-style: none;
+  font-size: 50px;
+}
+
+.navbar a:hover{
+  color: yellow;
+  cursor: pointer;
+}
+
+.logo{
+  /* font-size: 30px; */
+  font-family: 'Lobster Two', cursive;
+  font-size:220%;
+  /* color:#E50914; */
+  color: white;
+  font-weight: bold;
+  text-shadow: 1px 1px #ff0000;
+
+}
+
+
+.hero{
+  transition-delay: 2s;
+  box-shadow: inset 0 0 5em 1em #000;
+  /* background-image: url(../../assets/hero1.webp); */
+  /* height: 100%;
+  width: 100%; */
+  background-size: cover;
+  opacity: 0.8;
+  /* background-image: url(../../assets/hero3.webp); */
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  animation-name: animate;
+  animation-direction: alternate-reverse;
+  animation-duration: 60s;
+  animation-fill-mode: forwards;
+  animation-iteration-count: infinite;
+  animation-play-state: running;
+  animation-timing-function: ease-in-out;
+
+}
+
+
+  @keyframes animate{
+    0%{
+      background-image: url('../../assets/hero1.webp');
+    }
+
+    20%{
+      background-image: url('../../assets/hero4.webp');
+    }
+
+    40%{
+      background-image: url('../../assets/hero7.webp');
+    }
+
+    60%{
+      background-image: url('../../assets/hero8.webp');
+    }
+
+    80%{
+      background-image: url('../../assets/hero9.webp');
+    }
+
+    100%{
+      background-image: url('../../assets/hero10.webp');
+    }
+
+
+  }
+
+.fa{
+  color: #f03a3a;
+}
+
+.gamostag{
+  margin-top: 100px;
+}
+
+.tagline{
+  white-space: nowrap;
+  margin-top: -5%;
+  /* color: rgb(252, 21, 21); */
+  color: rgb(253, 0, 0);
+  opacity: 0.8;
+  text-shadow: 1px 1px rgba(255, 255, 255, 0.445);
+  font-size: 4vw;
+  /* font-weight: bold; */
+  /* text-shadow: 1px 1px white; */
+  opacity: 0.9;
+  font-family: 'Galada', cursive;
+  overflow: hidden;
+  width: 15em;
+  animation: type 4s steps(60, end);
+}
+
+@keyframes type{
+  from { width: 0; }
+}
+
+.start{
+  
+  position: relative;
+  text-align: center;
+  padding: 20%;
+  padding-top: 0; 
+  margin: auto;
+  /* top: 300px;
+  left: 640px; */
+  display: block;
+
+}
+
+
+.cross_line{
+  display: inline-block;
+  position: relative;
+  padding: 0.5em 1em;
+  border-top: solid 2px rgb(88, 88, 88);
+  border-bottom: solid 2px rgb(88, 88, 88);
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 100%;
+  color: white;
+  letter-spacing: 1px;
+  /* background-color: transparent; */
+  background-color: rgba(148, 147, 147, 0.5)
+}
+.cross_line:before, .cross_line:after{
+content: '';
+position: absolute;
+top: -7px;
+width: 2px;
+height: -webkit-calc(100% + 14px);
+height: calc(100% + 14px);
+background-color: rgb(88, 88, 88);
+transition: .3s;
+}
+.cross_line:before {left: 7px;}
+.cross_line:after {right: 7px;}
+.cross_line:hover:before{
+top: 0px;
+left:0;
+height: 100%;
+}
+.cross_line:hover:after{
+top: 0px;
+right: 0;
+height: 100%;
+}
+
+.cross_line:hover{
+background: red;
+color: white;
+transform: scale(1.1);
+cursor: pointer;
+transition: 2s;
+font-weight: normal;
+
+}
+
+
+.home{
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  padding: 16px;
+}
+
+
+
+.top-div{
+  margin-bottom:5%;
+}
+
+.subsheading{
+  padding: 10px;
+  text-align: center;
+  color: #f03a3a;
+}
+
+.option{
+  text-align: center;
+}
+
+.subscription{
+  align-items: center;
+  display: flex;
+  flex-direction: row;
+  padding: 16px;
+  color: white;
+}
+
+mat-radio-button{
+  padding: 10px;
+}
+
+.littleop{
+  color: red;
+  opacity: 0.7;
+}
+
+.plans{
+  padding: 10px;
+  display: flex;
+  flex-direction: row;
+}
+
+
+.sub-button{
+  margin: 10px;
+  background-color: #D4AF37;
+  color: #262626;
+}
+
+.intro{
+  text-align: center;
+  margin: auto;
+}
+
+.tagline1{
+  margin-top:0;
+
+
+}
+
+mat-horizontal-stepper{
+  background: transparent
+}
+
+mat-vertical-stepper{
+  background: transparent
+}
+
+.about{
+  background-color: #f2f2f2;
+  padding: 5%;
+}
+
+.about1{
+  background-color: #f2f2f2;
+  /* background-color: white; */
+  /* display: flex; */
+  margin: auto;
+  /* flex-direction: row; */
+  /* z-index: -1; */
+}
+
+.about2{
+  /* background-color: black; */
+  /* flex-direction: row; */
+  /* display: flex; */
+  /* opacity: 0.9; */
+  /* z-index: -1; */
+  background-color: #222222;
+/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+}
+
+
+.example-card {
+  width:75%;
+  overflow: hidden;
+  margin:10px;
+  padding: 5%;
+}
+
+.example-header-image {
+  background-image: url('https://material.angular.io/assets/img/examples/shiba1.webp');
+  background-size: cover;
+}
+
+.top{
+  display: flex;
+  flex-direction: column;
+  align-content: center;
+  margin-left: 10%;
+  margin-right: 10%;
+
+}
+
+/* .carousel-wrapper {
+  overflow: hidden;
+}
+.carousel {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  width: 6000px;
+} */
+/* .carousel-inner {
+  display: flex;
+} */
+
+.stats{
+  background-color:#111010;
+  color: white;
+}
+
+.tag{
+  opacity: 0.7;
+}
+
+.substats{
+  /* max-width: 75%; */
+
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  padding: 8px;
+  max-width: 100%;
+}
+
+
+#success{
+  font-size: 300%;
+  font-variant-caps: small-caps;
+  text-shadow: 1px 1px;
+  text-align: center;
+}
+
+
+.storypic{
+  height: 100%;
+  width: 35%;
+  padding: 10px;
+  border-radius: 50%;
+}
+
+.story-block{
+  background-color: white;
+  margin-bottom: 20px;
+}
+
+.story{
+  display: flex;
+  max-width: 80%;
+}
+
+.story1{
+  flex-direction: row-reverse;
+  display: flex;
+  max-width: 80%;
+}
+
+.more-story{
+  text-align: center;
+  /* margin: auto; */
+}
+
+.foot{
+  margin-top: auto;
+  padding: 12px;
+  font-size: 12px;
+  /* background: #171414; */
+  color: #fff;
+  display: block;
+  background-color: #02000a;
+  background-image: url("https://www.transparenttextures.com/patterns/cream-pixels.png");
+/* This is mostly intended for prototyping; please download the pattern and re-host for production environments. Thank you! */
+}
+
+.subfoot{
+  align-items: center;
+  display: flex;
+  flex-flow: row wrap;
+  padding: 8px;
+  font-size: 12px;
+  color: #fff;
+}
+
+.a{
+  color: red;
+  flex: 1;
+  flex: 30%;
+  text-align: center;
+  padding-left: 10%;
+}
+
+.b{
+  color: red;
+  flex:2;
+  flex: 30%;
+  text-align: center;
+  padding-left: 10%;
+}
+
+.c{
+  color: red;
+  flex: 3;
+  flex: 30%;
+  text-align: center;
+  padding-left: 10%;
+}
+
+.subfoot .A{
+  font-family: 'Lobster Two', cursive;
+  color: red;
+  flex:25%;
+  font-size: 250%;
+  text-shadow: 0.5px 0.5px rgb(219, 66, 66);
+  text-align: center;
+}
+
+.subfoot .B{
+  flex: 25%;
+  text-align: center;
+}
+
+.subfoot .C{
+  flex: 25%;
+  text-align: center;
+}
+
+.subfoot .D{
+  flex: 25%;
+  text-align: center;
+}
+
+.subfoot .D .social{
+  height: 25px;
+  width: 25px;
+}
+
+.subfoot .D .foot-style li{
+  padding: 4px;
+}
+
+.foot-style{
+  list-style: none;
+}
+
+.foot-style li{
+  padding: 8px;
+
+}
+
+
+
+/*Carousel*/
+
+.carousel_image{
+  padding:auto;
+  margin-bottom: 0;
+
+}
+
+#indicator{
+  background-color: #000;
+  color: #000;
+}
+
+
+.grid-container {
+  margin: 5%;
+}
+
+.dashboard-card {
+  float: none;
+  /* position: absolute; */
+  margin: 2%;
+}
+
+.more-button {
+  position: absolute;
+  top: 5px;
+  right: 10px;
+
+}
+
+.dashboard-card-content {
+  text-align: center;
+}
+/* .filler {
+  flex: 1 1 auto;
+} */
+/* label {
+  display: block;
+  font: 1rem 'Fira Sans', sans-serif;
+} */
+
+/* input,
+label {
+  margin: .4rem 0 0 30rem;
+}
+
+mat-form-field {
+  margin-right: 12px;
+} */
+
+
+
+
+mat-card{
+  overflow: hidden;
+  top:0;
+}

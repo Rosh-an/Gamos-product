@@ -1,0 +1,1 @@
+this service is related to horoscope related information

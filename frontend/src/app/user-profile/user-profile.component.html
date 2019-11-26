@@ -1,0 +1,606 @@
+<div class="prof">
+    <div class="prof-content">
+      <mat-toolbar class="nav" color="primary">
+          <div id="a"><mat-icon routerLink='/dashboard'>exit_to_app</mat-icon></div>
+          <div id="b"><strong>Profile</strong></div>
+          <div id="c">
+          <button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+              <mat-icon>dashboard</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button mat-menu-item routerLink='/dashboard'><mat-icon>account_circle</mat-icon>Dashboard</button>
+            <button mat-menu-item><mat-icon matBadge="8" matBadgePosition="after" matBadgeColor="accent">notification_important</mat-icon> Notifications</button>
+            <button mat-menu-item [matMenuTriggerFor]="settings"><mat-icon>settings_application</mat-icon> Settings</button>
+            <button mat-menu-item><mat-icon>help</mat-icon> Help</button>
+            <button (click)="logout()" mat-menu-item routerLink='/home'><mat-icon>power_settings_new</mat-icon> Log Out</button>
+        </mat-menu>
+        <mat-menu #settings="matMenu">
+            <button mat-menu-item routerLink='/settings'>Subscriptions</button>
+            <button mat-menu-item routerLink='/settings'>Security</button>
+        </mat-menu>
+          </div>
+      </mat-toolbar>
+
+      <div class="content-image hvrbox">
+
+
+      <img [src]="url ? url : 'https://avatarsed1.serversdev.getgo.com/2205256774854474505_medium.jpg'"
+          alt="No Image">
+      <input id="fileInput" type='file' (change)="onSelectFile($event)">
+        <div class="hvrbox-layer_top">
+            <div class="hvrbox-text">
+              <button mat-button class="buttonStyle"><label for="fileInput">Edit</label></button>
+              <br><br><button mat-button class="buttonStyle">View</button>
+            </div>
+        </div>
+
+      </div>
+      <div *ngIf="BasicPersonalDetails">
+
+        
+        
+        <div id="content-name">
+          {{BasicPersonalDetails.firstName}} {{BasicPersonalDetails.lastName}}
+        </div>
+        <div id="content-location">
+          {{BasicPersonalDetails.city}}
+        </div>
+
+      </div>
+
+
+          <div class="stats-head">
+            <h4>Liked by</h4>
+
+            <span>{{likedby}}</span>
+          </div>
+          <div class="stats-head">
+              <h4>Connections</h4>
+
+              <span>{{connections}}</span>
+            </div>
+
+            
+
+    </div>
+
+    
+
+</div>
+
+<div class="prof-body">
+
+    <mat-tab-group mat-stretch-tabs>
+        <mat-tab label="Profie Video">
+                  <br>
+                  <div class="video">
+                      <mat-video [src]="vidUrl ? vidUrl : 'https://cdn.videvo.net/videvo_files/converted/2017_12/preview/171124_B2_UHD_001.mp471291.webm'"></mat-video>
+                  </div><br>
+                  <div style="margin-left: 45%">
+                      <button mat-button class="buttonStyle"><label for="fileInputVideo">Change Video</label></button>
+                      <input id="fileInputVideo" type='file' (change)="onSelectFileVideo($event)">
+                      <button mat-button (click)="openVideo()">Upload Video</button>
+                  </div><br>
+        </mat-tab>
+        
+
+        <mat-tab label="Details">
+          <!-- <mat-tab-group mat-stretch-tabs>
+
+        <mat-tab label="Basic Details"> -->
+
+          <!-- <div class="prof-details">
+                <div *ngIf="toBeEdited!='general'; else elseBlock">
+
+
+                    <div class="profiledetail">
+
+                        <div fxFlex=50%>
+                            <p><span class="head">Name</span>: {{BasicPersonalDetails.firstName}} {{BasicPersonalDetails.lastName}}</p>
+                            <p><span class="head">Gender</span>: {{BasicPersonalDetails.gender}}</p>
+                            <p><span class="head">Age</span>: {{BasicPersonalDetails.age}}</p>
+                            <p><span class="head">Current City</span>: {{BasicPersonalDetails.city}}</p>
+                            <p><span class="head">Native City</span>: {{BasicPersonalDetails.nativeCity}}</p>
+                            <p><span class="head">Mother Tongue</span>: {{BasicPersonalDetails.tongue}}</p>
+                            <p><span class="head">Religion</span>: {{BasicPersonalDetails.religion}}</p>
+                        </div>
+      
+                        <div fxFlex=50%>
+                            <p><mat-icon>phone_android</mat-icon> {{BasicPersonalDetails.phone}}</p>
+                            <p><mat-icon>email</mat-icon> {{BasicPersonalDetails.email}}</p>
+                        </div>
+      
+                      </div>
+                 
+                  
+                  
+                  
+
+
+
+
+
+
+
+
+
+                  
+                  <button mat-button class="buttonStyle" (click)="doEdit('general')">Edit</button>
+                 </div>
+                 <ng-template #elseBlock>Edit Block
+                   <form [formGroup]="genFormGroup">
+                     <mat-form-field *ngFor="let key of basicKeys">
+                       <input type="text" matInput placeholder="{{key}}" formControlName="{{key}}">
+                     </mat-form-field>
+                     <button mat-button class="buttonStyle" (click)="Edited()">Save</button>
+                   </form>
+                 </ng-template>
+
+              </div>
+
+        </mat-tab>
+        <mat-tab label="Personal Details">
+          <div class="prof-details">
+              <div *ngIf="toBeEdited!='personal'; else elseBlock2">
+                  <div class="profiledetail">
+
+                      <div fxFlex=50%>
+                          <p><span class="head">Height</span>: {{HabitsDetails.height}}</p>
+                          <p><span class="head">Weight</span>: {{HabitsDetails.weight}}</p>
+                          <p><span class="head">Hobbies</span>: {{HabitsDetails.hobbies}}</p>
+                          <p><span class="head">Interests</span>: {{HabitsDetails.interests}}</p>
+                          <p><span class="head">Marital Status</span>: {{HabitsDetails.marital}}</p>
+                          <p><span class="head">Settle abroad?</span> {{HabitsDetails.abroad}}</p>
+                          <p><span class="head">About Me</span>: {{HabitsDetails.yourself}}</p>
+                          
+                      </div>
+    
+                      <div fxFlex=50%>
+                          <p><mat-icon>local_dining</mat-icon> {{HabitsDetails.diet}}</p>
+                          <p><mat-icon>local_bar</mat-icon> {{HabitsDetails.drink}}</p>
+                          <p><mat-icon>smoking_rooms</mat-icon> {{HabitsDetails.smoke}}</p>
+                          <p><span class="head">Challenged?</span> {{HabitsDetails.challenged}}</p>
+
+                      </div>
+    
+                    </div>
+                
+                <button mat-button class="buttonStyle" (click)="doEdit('personal')">Edit</button>
+                 </div>
+                 <ng-template #elseBlock2>Edit Block
+                    <form [formGroup]="personalFormGroup">
+                        <mat-form-field *ngFor="let key of habitKeys">
+                            <input type="text" matInput placeholder="{{key}}" formControlName="{{key}}">
+                          </mat-form-field>
+                      <button (click)="Edited()">Save</button>
+                    </form>
+                  </ng-template>
+          </div>
+        </mat-tab>
+
+        <mat-tab label="Family Details">
+            <div class="prof-details">
+                <div *ngIf="toBeEdited!='family'; else elseBlock3">
+
+                    <div class="profiledetail">
+
+                        <div fxFlex=50%>
+                            <p><span class="head">Father Name</span>: {{FamilyDetails.fatherName}}</p>
+                            <p><span class="head">Mother Name</span>: {{FamilyDetails.motherName}}</p>
+                            <p><span class="head">Father Occupation</span>: {{FamilyDetails.fatherOccupation}}</p>
+                            <p><span class="head">Mother Occupation</span>: {{FamilyDetails.motherOccupation}}</p>
+                  
+                            <p><span class="head">About Family</span>: {{FamilyDetails.aboutf}}</p>
+                            
+                        </div>
+      
+                        <div fxFlex=50%>
+                            <p><mat-icon>people</mat-icon> {{FamilyDetails.members}}</p>
+                            <p><span class="head">Younger Brothers: </span> {{FamilyDetails.youngb}}</p>
+                            <p><span class="head">Youngers Sisters: </span> {{FamilyDetails.youngs}}</p>
+                            <p><span class="head">Elder Brothers: </span> {{FamilyDetails.elderb}}</p>
+                            <p><span class="head">Elder Sisters: </span> {{FamilyDetails.elders}}</p>
+  
+                        </div>
+      
+                      </div>
+
+
+
+
+
+                    
+                    <button mat-button class="buttonStyle" (click)="doEdit('family')">Edit</button>
+                   </div>
+                   <ng-template #elseBlock3>
+                     <form [formGroup]="familyFormGroup">
+                        <mat-form-field *ngFor="let key of familyKeys">
+                            <input type="text" matInput placeholder="{{key}}" formControlName="{{key}}">
+                          </mat-form-field>
+                      <button (click)="Edited()">Save</button>
+                     </form>
+                   </ng-template>
+            </div>
+        </mat-tab>
+
+        <mat-tab label="Professional Details">
+            <div class="prof-details">
+                <div *ngIf="toBeEdited!='career'; else elseBlock4">
+
+
+                    <div class="profiledetail">
+
+                        <div fxFlex=50%>
+                            <p><span class="head">Company</span></p>
+                            <p><mat-icon>work</mat-icon> {{ProfessionalDetails.currentCompany}}</p>
+                            <p><mat-icon>person_pin</mat-icon> {{ProfessionalDetails.location}}</p>
+                            <p><mat-icon>account_balance</mat-icon> {{ProfessionalDetails.income}} LPA</p>
+                           
+                            
+                            
+                        </div>
+      
+                        <div fxFlex=50%>
+                            <p><span class="head">Profession</span>: {{ProfessionalDetails.profession}}</p>
+                            
+                            
+                            <p><span class="head">Work Experience</span>: {{ProfessionalDetails.experience}}</p>
+                            <p><span class="head">LinkedIn</span>: {{ProfessionalDetails.linkedin}}</p>
+                            
+                        </div>
+      
+                      </div>
+
+
+
+
+                    
+                    <button mat-button class="buttonStyle" (click)="doEdit('career')">Edit</button>
+                   </div>
+                   <ng-template #elseBlock4>
+                     <form [formGroup]="careerFormGroup">
+                        <mat-form-field *ngFor="let key of professionalKeys">
+                            <input type="text" matInput placeholder="{{key}}" formControlName="{{key}}">
+                          </mat-form-field>
+                        <button (click)="Edited()">Save</button>
+                     </form>
+                    </ng-template>
+            </div>
+        </mat-tab>
+
+        <mat-tab label="Education Details">
+            <div class="prof-details">
+                <div *ngIf="toBeEdited!='education'; else elseBlock5">
+                    
+                    <div class="profiledetail">
+
+                        <div fxFlex=50%>
+                            
+                            
+                            <p><span class="head">College</span>: {{EducationalDetails.college}}</p>
+                            <p><span class="head">City</span>: {{EducationalDetails.city}}</p>
+                            <p><span class="head">Passing Year</span>: {{EducationalDetails.passingYear}}</p>
+                            
+                            
+                        </div>
+      
+                          <p><span class="head">Highest Education</span>: {{EducationalDetails.education}}</p>
+                        
+      
+                      </div>
+
+                    
+                    <button mat-button class="buttonStyle" (click)="doEdit('education')">Edit</button>
+                   </div>
+                   <ng-template #elseBlock5>
+                      <form [formGroup]="educationFormGroup">
+                          <mat-form-field *ngFor="let key of educationalKeys">
+                              <input type="text" matInput placeholder="{{key}}" formControlName="{{key}}">
+                            </mat-form-field>
+                          <button (click)="Edited()">Save</button>
+                      </form>
+                    </ng-template>
+            </div>
+        </mat-tab>
+        <mat-tab label="Horoscope Details">
+            <div class="prof-details">
+                <div *ngIf="toBeEdited!='horoscope'; else elseBlock6">
+
+                    <div class="profiledetail">
+
+                        <div fxFlex=50%>
+
+                            <p><span class="head">Birth Details</span></p>
+                            <p><mat-icon>access_time</mat-icon> {{HoroscopeDetails.timeOfBirth}}</p>
+                            <p><mat-icon>date_range</mat-icon> {{HoroscopeDetails.dateOfBirth}}</p>
+                            <p><mat-icon>home</mat-icon> {{HoroscopeDetails.placeOfBirth}}</p>
+                            
+                           
+                            
+                            
+                        </div>
+      
+                        <div fxFlex=50%>
+                            
+                            <p><span class="head">Manglik</span>: {{HoroscopeDetails.manglik}}</p>
+                           
+                            
+                        </div>
+      
+                      </div>
+
+                    
+                    <button mat-button class="buttonStyle" (click)="doEdit('horoscope')">Edit</button>
+                   </div>
+                   <ng-template #elseBlock6>
+                      <form [formGroup]="horoscopeFormGroup">
+                          <mat-form-field *ngFor="let key of horoscopeKeys">
+                              <input type="text" matInput placeholder="{{key}}" formControlName="{{key}}">
+                            </mat-form-field>
+                        <button (click)="Edited()">Save</button>
+                      </form>
+                    </ng-template>
+              </div>
+        </mat-tab>
+
+      </mat-tab-group> -->
+
+      <div class="container" fxLayout fxLayout.xs="column">
+          <div class="box dark">
+            <div class="content">
+              <h2>01</h2>
+              <h3 style="color:#fff">Basic</h3>
+              <hr>
+              <div *ngIf="toBeEdited!='general'; else elseBlock">
+              <div fxLayout fxLayoutGap="5px">
+              <div fxFlex=50%>
+              <p><span class="head">Name</span>: {{BasicPersonalDetails.firstName}} {{BasicPersonalDetails.lastName}}</p><br>
+              <p><span class="head">Gender</span>: {{BasicPersonalDetails.gender}}</p><br>
+              <p><span class="head">Age</span>: {{BasicPersonalDetails.age}}</p><br>
+              
+              <p><span class="head">Mother Tongue</span>: {{BasicPersonalDetails.tongue}}</p><br>
+              <p><span class="head">Religion</span>: {{BasicPersonalDetails.religion}}</p><br>
+              </div>
+              <div fxFlex=50%>
+              <p><span class="head">Current City</span>: {{BasicPersonalDetails.city}}</p><br>
+              <p><span class="head">Native City</span>: {{BasicPersonalDetails.nativeCity}}</p><br>
+              <p><mat-icon>phone_android</mat-icon> {{BasicPersonalDetails.phone}}</p><br>
+              <p><mat-icon>email</mat-icon> {{BasicPersonalDetails.email}}</p><br>
+            
+              
+              
+            </div>
+          </div>
+          <a (click)="doEdit('general')">Edit</a>
+        </div>
+        
+        <ng-template #elseBlock>
+            <form style="color: white" [formGroup]="genFormGroup">
+              <mat-form-field *ngFor="let key of basicKeys">
+                <input type="text" matInput placeholder="{{key}}" formControlName="{{key}}">
+              </mat-form-field>
+              <button mat-button class="buttonStyle" (click)="Edited()">Save</button>
+            </form>
+          </ng-template>
+          
+            </div>
+          </div>
+          <div class="box dark">
+              <div class="content">
+                <h2>02</h2>
+                <h3 style="color:#fff">Personal</h3>
+                <hr>
+                <div *ngIf="toBeEdited!='personal'; else elseBlock2">
+                <div fxLayout fxLayoutGap="5px">
+                <div fxFlex=50%>
+                <p><span class="head">Height</span>: {{HabitsDetails.height}}</p><br>
+                <p><span class="head">Weight</span>: {{HabitsDetails.weight}}</p><br>
+                <p><span class="head">Hobbies</span>: {{HabitsDetails.hobbies}}</p><br>
+                <p><span class="head">Interests</span>: {{HabitsDetails.interests}}</p><br>
+                <p><span class="head">Marital Status</span>: {{HabitsDetails.marital}}</p><br>
+                <p><span class="head">Settle abroad?</span> {{HabitsDetails.abroad}}</p><br>
+                <p><span class="head">About Me</span>: {{HabitsDetails.yourself}}</p><br>
+                </div>
+                <div fxFlex=50%>
+                <p><mat-icon>local_dining</mat-icon> {{HabitsDetails.diet}}</p><br>
+                <p><mat-icon>local_bar</mat-icon> {{HabitsDetails.drink}}</p><br>
+                <p><mat-icon>smoking_rooms</mat-icon> {{HabitsDetails.smoke}}</p><br>
+                <p><span class="head">Challenged?</span> {{HabitsDetails.challenged}}</p><br>
+                </div>
+                </div>
+                <a (click)="doEdit('personal')">Edit</a>
+              </div>
+              </div>
+
+              <ng-template #elseBlock2>Edit Block
+                  <form style="color: white" [formGroup]="personalFormGroup">
+                      <mat-form-field *ngFor="let key of habitKeys">
+                          <input type="text" matInput placeholder="{{key}}" formControlName="{{key}}">
+                        </mat-form-field>
+                    <button (click)="Edited()">Save</button>
+                  </form>
+                </ng-template>
+
+            </div>
+            <div class="box dark">
+                <div class="content">
+                  <h2>03</h2>
+                  <h3 style="color:#fff">Family</h3>
+                  <hr>
+                  <div *ngIf="toBeEdited!='family'; else elseBlock3">
+                  <div fxLayout fxLayoutGap="5px">
+                  <div fxFlex=50%>
+                  <p><span class="head">Father Name</span>: {{FamilyDetails.fatherName}}</p><br>
+                  <p><span class="head">Mother Name</span>: {{FamilyDetails.motherName}}</p><br>
+                  <p><span class="head">Father Occupation</span>: {{FamilyDetails.fatherOccupation}}</p><br>
+                  <p><span class="head">Mother Occupation</span>: {{FamilyDetails.motherOccupation}}</p><br>
+                  
+                  <p><span class="head">About Family</span>: {{FamilyDetails.aboutf}}</p><br>
+                  </div>
+                  <div fxFlex=50%>
+                  <p><mat-icon>people</mat-icon> {{FamilyDetails.members}}</p><br>
+                  <p><span class="head">Younger Brothers: </span> {{FamilyDetails.youngb}}</p><br>
+                  <p><span class="head">Youngers Sisters: </span> {{FamilyDetails.youngs}}</p><br>
+                  <p><span class="head">Elder Brothers: </span> {{FamilyDetails.elderb}}</p><br>
+                  <p><span class="head">Elder Sisters: </span> {{FamilyDetails.elders}}</p><br>
+                  </div>
+                  </div>
+
+                  <a (click)="doEdit('family')">Edit</a>
+                </div>
+              </div>
+
+
+                <ng-template #elseBlock3>
+                    <form style="color: white" [formGroup]="familyFormGroup">
+                       <mat-form-field *ngFor="let key of familyKeys">
+                           <input type="text" matInput placeholder="{{key}}" formControlName="{{key}}">
+                         </mat-form-field>
+                     <button (click)="Edited()">Save</button>
+                    </form>
+                  </ng-template>
+              </div>
+
+          </div>
+
+
+         
+
+          <div class="container" fxLayout fxLayout.xs="column">
+            
+              <div class="box dark">
+                  <div class="content">
+                    <h2>04</h2>
+                    <h3 style="color:#fff">Profession</h3>
+                    <hr>
+                    <div *ngIf="toBeEdited!='career'; else elseBlock4">
+                    <div fxLayout fxLayoutGap="5px">
+                    <div fxFlex=50%>
+                    <p><span class="head">Company</span></p><br>
+                    <p><mat-icon>work</mat-icon> {{ProfessionalDetails.currentCompany}}</p><br>
+                    <p><mat-icon>person_pin</mat-icon> {{ProfessionalDetails.location}}</p><br>
+                    <p><mat-icon>account_balance</mat-icon> {{ProfessionalDetails.income}} LPA</p><br>
+                    <p><span class="head">Profession</span>: {{ProfessionalDetails.profession}}</p><br>
+                    </div>      
+                    <div fxFlex=50%>
+                    <p><span class="head">Work Exp.</span>: {{ProfessionalDetails.experience}}</p><br>
+                    <p><span class="head">LinkedIn</span>: {{ProfessionalDetails.linkedin}}</p><br>
+                    </div>
+                    </div>
+                    <a (click)="doEdit('career')">Edit</a>
+                  </div>
+                  </div>
+                  <ng-template #elseBlock4>
+                      <form style="color: white" [formGroup]="careerFormGroup">
+                         <mat-form-field *ngFor="let key of professionalKeys">
+                             <input type="text" matInput placeholder="{{key}}" formControlName="{{key}}">
+                           </mat-form-field>
+                         <button (click)="Edited()">Save</button>
+                      </form>
+                     </ng-template>
+                </div>
+              <div class="box dark">
+                  <div class="content">
+                    <h2>05</h2>
+                    <h3 style="color:#fff">Education</h3>
+                    <hr>
+                    <div *ngIf="toBeEdited!='education'; else elseBlock5">
+                    <div fxLayout fxLayoutGap="5px">
+                    <div fxFlex=100%>
+                    <p><span class="head">College</span>: {{EducationalDetails.college}}</p><br>
+                    <p><span class="head">City</span>: {{EducationalDetails.city}}</p><br>
+                    <p><span class="head">Passing Year</span>: {{EducationalDetails.passingYear}}</p><br>
+                    <p><span class="head">Highest Education</span>: {{EducationalDetails.education}}</p><br>
+                    </div>
+                    </div>
+                    <a (click)="doEdit('education')">Edit</a>
+                  </div>
+                </div>
+                  <ng-template #elseBlock5>
+                      <form style="color: white" [formGroup]="educationFormGroup">
+                          <mat-form-field *ngFor="let key of educationalKeys">
+                              <input type="text" matInput placeholder="{{key}}" formControlName="{{key}}">
+                            </mat-form-field>
+                          <button (click)="Edited()">Save</button>
+                      </form>
+                    </ng-template>
+                </div>
+                <div class="box dark">
+                    <div class="content">
+                      <h2>06</h2>
+                      <h3 style="color:#fff">Horoscope</h3>
+                      <hr>
+                      <div *ngIf="toBeEdited!='horoscope'; else elseBlock6">
+                      <p><span class="head">Birth Details</span></p><br>
+                      <p><mat-icon>access_time</mat-icon> {{HoroscopeDetails.timeOfBirth}}</p><br>
+                      <p><mat-icon>date_range</mat-icon> {{HoroscopeDetails.dateOfBirth}}</p><br>
+                      <p><mat-icon>home</mat-icon> {{HoroscopeDetails.placeOfBirth}}</p><br>
+                      <p><span class="head">Manglik</span>: {{HoroscopeDetails.manglik}}</p><br>
+                      <a (click)="doEdit('horoscope')">Edit</a>
+                    </div>
+                  </div>
+
+                    <ng-template #elseBlock6>
+                        <form style="color: white" [formGroup]="horoscopeFormGroup">
+                            <mat-form-field *ngFor="let key of horoscopeKeys">
+                                <input type="text" matInput placeholder="{{key}}" formControlName="{{key}}">
+                              </mat-form-field>
+                          <button (click)="Edited()">Save</button>
+                        </form>
+                      </ng-template>
+                  </div>
+        </div>
+
+
+
+
+
+      </mat-tab>
+
+      <mat-tab disabled label="Connections">
+          CONNECTIONS
+      </mat-tab>
+
+      <mat-tab disabled label="Notifications">
+          NOTIFICATIONS
+      </mat-tab>
+
+    </mat-tab-group>
+
+</div>
+
+
+<!-- <div class="container" fxLayoutGap="10px" fxLayout fxLayout.xs="column">
+    <div class="box">
+      <div class="content">
+        <h2>01</h2>
+        <h3 style="color:#fff">Sevice 1</h3>
+        <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem nesciunt voluptates facere quos aliquam. Possimus asperiores mollitia voluptatem. Omnis, mollitia maiores aspernatur sunt modi exercitationem voluptas quos ex hic dolore?</p>
+        <a href="#">Edit</a>
+      </div>
+    </div>
+    <div class="box">
+        <div class="content">
+          <h2>02</h2>
+          <h3 style="color:#fff">Sevice 2</h3>
+          <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem nesciunt voluptates facere quos aliquam. Possimus asperiores mollitia voluptatem. Omnis, mollitia maiores aspernatur sunt modi exercitationem voluptas quos ex hic dolore?</p>
+          <a href="#">Edit</a>
+        </div>
+      </div>
+      <div class="box">
+          <div class="content">
+            <h2>03</h2>
+            <h3 style="color:#fff">Sevice 3</h3>
+            <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem nesciunt voluptates facere quos aliquam. Possimus asperiores mollitia voluptatem. Omnis, mollitia maiores aspernatur sunt modi exercitationem voluptas quos ex hic dolore?</p>
+            <a href="#">Edit</a>
+          </div>
+        </div>
+        <div class="box">
+            <div class="content">
+              <h2>04</h2>
+              <h3 style="color:#fff">Sevice 4</h3>
+              <p> Lorem ipsum dolor sit amet consectetur adipisicing elit. Dolorem nesciunt voluptates facere quos aliquam. Possimus asperiores mollitia voluptatem. Omnis, mollitia maiores aspernatur sunt modi exercitationem voluptas quos ex hic dolore?</p>
+              <a href="#">Edit</a>
+            </div>
+          </div>
+  </div> -->

@@ -1,0 +1,57 @@
+
+
+
+<mat-card style="padding: 0" class="example-card" 
+[@cardAnimator]="animationState" 
+(@cardAnimator.done)="resetAnimationState()"
+(swiperight)="like(profiles[i].basicPersonalDetails.email)"
+(swipeleft)="dislike(profiles[i].basicPersonalDetails.email)"
+(swipedown)="startAnimation('flipOutY')">
+
+<mat-card-content fxLayout
+fxLayout.xs="column">
+<ngx-spinner
+
+bdOpacity = 0.3
+bdColor = "black"
+size = "medium"
+color = "#fff"
+type = "line-scale"
+[fullScreen] = "false"
+><br><br>
+<p style="color: white" > Getting Recommendations.. </p>
+</ngx-spinner>
+
+  <div fxFlex=30% style="margin: auto;">
+    <h2 style="opacity: 0.9">Not interested?</h2>
+    <h4 style="opacity: 0.7"> Swipe left</h4>
+    <img style="height: 100px; width: 100px" src="../../assets/left.webp">
+  </div>
+
+  <div *ngIf="profiles" class="container" fxFlex=40%>
+    <img (click)="click1(profiles[i].basicPersonalDetails.email)" (click)="GoToShowProfile(profiles[i].basicPersonalDetails.email)" style="margin-top: 0" mat-card-image [src]="profiles[i].imageUrl? profiles[i].imageUrl[0]: 'https://avatarsed1.serversdev.getgo.com/2205256774854474505_medium.jpg'">
+    <div class="centered">
+        {{profiles[i].basicPersonalDetails.firstName}} <br> Age : {{profiles[i].basicPersonalDetails.age}} <br> {{profiles[i].basicPersonalDetails.city}}
+    </div>
+    <div class="cross">
+      <!-- <img style=" height: 50px; width: 50px; border-radius: 50%;" src="../../assets/cross1.jpg"> -->
+    </div>
+    <div class="tick">
+      <!-- <img style=" height: 50px; width: 50px; border-radius: 50%;" src="../../assets/tick1.jpg"> -->
+    </div>
+  </div>
+
+  <div fxFlex=30% style="margin: auto;">
+      <h2 style="opacity: 0.9">Interested?</h2>
+      <h4 style="opacity: 0.7"> Swipe right</h4>
+      <img style="height: 100px; width: 100px" src="../../assets/right.webp">
+      
+  </div>
+
+</mat-card-content>
+
+</mat-card>
+
+
+
+

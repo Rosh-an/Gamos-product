@@ -1,0 +1,1 @@
+service for sending data from frontend to RabbitMQ
